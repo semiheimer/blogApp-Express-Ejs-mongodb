@@ -1,4 +1,4 @@
-{%- include('incHeader') %}
+{%- include('partials/incHeader') %}
 </div>
 <!-- main start -->
 <main class="container">
@@ -22,14 +22,16 @@
                             <td>
                                 <select name="blogCategoryId" class="form-select">
                                     {% for (let category of categories) { %}
-                                    <option value="{%= category.id %}" {%= (category.id == post?.blogCategoryId.id ? 'selected' : '') %}>{%= category.name %}</option>
+                                    <option value="{%= category.id %}" {%=(category.id==post?.blogCategoryId.id
+                                        ? 'selected' : '' ) %}>{%= category.name %}</option>
                                     {% } %}
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>Title</td>
-                            <td><input type="text" name="title" required class="form-control" value="{%= post?.title %}"></td>
+                            <td><input type="text" name="title" required class="form-control"
+                                    value="{%= post?.title %}"></td>
                         </tr>
                         <tr>
                             <td>Content</td>
@@ -41,8 +43,8 @@
                             <td>Published</td>
                             <td>
                                 <select name="published" class="form-select">
-                                    <option value="0" {%= (post?.published ? '' : 'selected') %}>No</option>
-                                    <option value="1" {%= (post?.published ? 'selected' : '') %}>Yes</option>
+                                    <option value="0" {%=(post?.published ? '' : 'selected' ) %}>No</option>
+                                    <option value="1" {%=(post?.published ? 'selected' : '' ) %}>Yes</option>
                                 </select>
                             </td>
                         </tr>
@@ -61,4 +63,4 @@
 </main>
 <!-- main end -->
 
-{%- include('incFooter') %}
+{%- include('partials/incFooter') %}

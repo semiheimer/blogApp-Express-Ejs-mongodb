@@ -7,18 +7,28 @@ module.exports.BlogPost = {
     const categories = await BlogCategory.find();
     const recentPosts = await BlogPost.find()
       .sort({ createdAt: "desc" })
-      .limit(3);
+      .limit(4);
 
     if (!req.url.includes("?")) req.url += "?";
+
     const details = await res.getModelListDetails(BlogPost);
-    console.log(details);
+
+    const paginations = {
+      beforePrevious: details.pages.beforePrevious,
+      previous: details.pages.previous,
+      current: details.pages.current,
+      next: details.pages.next,
+      afterNext: details.pages.afterNext,
+    };
+    const pageUrl = req.url.split("&")[0];
 
     res.render("postList", {
+      paginations,
       details,
       posts: data,
       categories,
       recentPosts,
-      pageUrl: req.url.replace(/[?|&]page=([^&]+)/gi, ""), // clean 'page' queries from url.
+      pageUrl,
     });
   },
 
@@ -52,7 +62,7 @@ module.exports.BlogPost = {
         { runValidators: true },
       );
 
-      res.redirect("/post/" + req.params.postId);
+      res.redirect("/posts/" + req.params.postId);
     } else {
       res.render("postForm", {
         categories: await BlogCategory.find(),

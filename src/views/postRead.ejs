@@ -1,4 +1,4 @@
-{%- include('incHeader') %}
+{%- include('partials/incHeader') %}
 </div>
 <!-- main start -->
 <main class="container">
@@ -6,21 +6,24 @@
         <div class="col-md-12 p-3">
             <!-- BlogPost Read -->
             <div class="admin-area text-end">
-                <a class="btn btn-sm btn-primary" href="/post/{%= post._id %}/update">Update</a>
-                <a class="btn btn-sm btn-danger" href="/post/{%= post._id %}/delete" onclick="return confirm('Are you sure?')">Delete</a>
-                Published: {%= post.published %}
+                {%= post.published?"Published":"Unpublished" %}
+                <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
+                <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
+                    onclick="return confirm('Are you sure?')">Delete</a>
             </div>
             <article class="blog-post">
-                <a href="/post?filter[blogCategoryId]={%= post.blogCategoryId._id %}"># {%= post.blogCategoryId.name %}</a>
+                <a href="/posts?filter[blogCategoryId]={%= post.blogCategoryId._id %}"># {%= post.blogCategoryId.name
+                    %}</a>
                 <h2 class="display-5 mb-1">
-                    <a href="/post/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title %}</a>
+                    <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
+                        %}</a>
                 </h2>
                 <p class="blog-post-meta">{%= post.createdAt.toUTCString() %}</p>
-                {%- post.content %}
+                {%= post.content %}
             </article>
         </div>
     </div>
 </main>
 <!-- main end -->
 
-{%- include('incFooter') %}
+{%- include('partials/incFooter') %}

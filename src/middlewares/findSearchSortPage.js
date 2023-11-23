@@ -1,5 +1,6 @@
 "use strict";
 module.exports = (req, res, next) => {
+  if (req.method !== "GET" && !req.params) next();
   let search = req.query?.search || {};
   for (let key in search) search[key] = { $regex: search[key], $options: "i" };
 
@@ -8,7 +9,7 @@ module.exports = (req, res, next) => {
   search = { ...search, ...filter };
   const sort = req.query?.sort || { createdAt: "desc" };
   let limit = Number(req.query?.limit);
-  limit = limit > 0 ? limit : Number(process.env?.PAGE_SIZE || 20);
+  limit = limit > 0 ? limit : Number(process.env?.PAGE_SIZE || 10);
 
   let page = Number(req.query?.page);
   page = (page > 0 ? page : 1) - 1;
@@ -33,11 +34,11 @@ module.exports = (req, res, next) => {
       limit,
       page,
       pages: {
-        previous1: page > 1 ? page - 1 : false,
+        beforePrevious: page > 1 ? page - 1 : false,
         previous: page > 0 ? page : false,
         current: page + 1,
         next: page + 2,
-        next1: page < Math.ceil(data.length / limit) - 2 ? page + 3 : false,
+        afterNext: page < Math.ceil(data.length / limit) - 2 ? page + 3 : false,
         total: Math.ceil(data.length / limit),
       },
       totalRecords: data.length,

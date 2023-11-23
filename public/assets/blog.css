@@ -32,3 +32,11 @@ h6 {
     height: 250px;
   }
 }
+.text-justify {
+  text-align: justify;
+}
+.fixed-top-bar {
+  position: fixed;
+  top: 0;
+  z-index: 1000; /* Opsiyonel: Z-index değeri, diğer elemanlarla çakışmayı önlemek için ayarlanabilir. */
+}
