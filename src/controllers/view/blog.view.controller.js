@@ -1,7 +1,7 @@
 "use strict";
-const { BlogCategory, BlogPost } = require("../../models/blogModel");
+const { BlogCategory, BlogPost } = require("../../models/Blog.model");
 
-module.exports.BlogPostView = {
+module.exports.blogPostViewController = {
   list: async (req, res) => {
     const data = await req.getModelList(BlogPost, "blogCategoryId");
     const categories = await BlogCategory.find();

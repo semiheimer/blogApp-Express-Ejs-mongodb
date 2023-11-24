@@ -1,7 +1,7 @@
 "use strict";
 const { BadRequestError } = require("../../errors/customErrors");
 const passwordValidator = require("../../helpers/passwordValidator");
-const User = require("../../models/userModel");
+const User = require("../../models/User.model");
 
 module.exports.User = {
   list: async (req, res) => {

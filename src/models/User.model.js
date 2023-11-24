@@ -1,9 +1,10 @@
 "use strict";
-
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
+const { createRefreshJWT, createAccessJWT } = require("../helpers/tokenHelper");
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -55,4 +56,24 @@ userSchema.plugin(uniqueValidator, {
   message: "This {PATH} is exist",
 });
 
-module.exports = mongoose.model("User", UserSchema);
+userSchema.methods.generateAuthToken = function (isRefresh = false) {
+  const token = {};
+
+  token.access = createAccessJWT({
+    _id: this._id,
+    email: this.email,
+    isAdmin: this.isAdmin,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    isActive: this.isActive,
+  });
+
+  if (isRefresh)
+    token.refresh = createRefreshJWT({
+      _id: this._id,
+      password: this.password,
+    });
+  return token;
+};
+
+module.exports = mongoose.model("User", userSchema);

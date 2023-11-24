@@ -1,6 +1,6 @@
 "use strict";
 const { UnauthenticatedError } = require("../../errors/customErrors");
-const User = require("../../models/userModel");
+const User = require("../../models/User.model");
 
 module.exports.UserView = {
   login: async (req, res) => {

@@ -1,7 +1,9 @@
 "use strict";
 
 const router = require("express").Router();
-const { BlogPostView } = require("../../controllers/view/blog.view.controller");
+const {
+  blogPostViewController: BlogPostView,
+} = require("../../controllers/view/blog.view.controller");
 
 router.all("/", BlogPostView.list);
 router.all("/create", BlogPostView.create);
