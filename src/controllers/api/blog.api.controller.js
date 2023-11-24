@@ -1,11 +1,9 @@
 "use strict";
-require("express-async-errors");
-
 const { BlogCategory, BlogPost } = require("../../models/blogModel");
 
 module.exports.BlogCategory = {
   list: async (req, res) => {
-    const data = await res.getModelList(BlogCategory);
+    const data = await req.getModelList(BlogCategory);
 
     res.status(200).send({
       error: false,
@@ -57,7 +55,7 @@ module.exports.BlogCategory = {
 
 module.exports.BlogPost = {
   list: async (req, res) => {
-    const data = await res.getModelList(BlogPost, "blogCategoryId");
+    const data = await req.getModelList(BlogPost, "blogCategoryId");
 
     res.status(200).send({
       error: false,

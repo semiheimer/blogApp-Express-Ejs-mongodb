@@ -4,7 +4,8 @@
 <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
         {% for (const category of categories ) { %}
-        <a class="nav-item nav-link link-body-emphasis" href="/posts?filter[blogCategoryId]={%= category._id %}">{%=
+        <a class="nav-item nav-link link-body-emphasis"
+            href="/posts?filter[blogCategoryId]={%= category._id %}&page=1">{%=
             category.name %}</a>
         {% } %}
     </nav>
@@ -15,19 +16,27 @@
     <div class="row g-5">
         <div class="col-md-8">
             <div class="admin-area text-end">
-                <a class="btn btn-primary" href="/post/create">New Post</a>
+                <a class="btn btn-primary" href="/posts/create">New Post</a>
             </div>
             <h3 class="pb-4 fst-italic border-bottom">
                 Welcome to my blog site
             </h3>
             <!-- BlogPosts -->
             {% for (let post of posts) { %}
-            <article class="mb-3">
+            <article class="my-54">
                 <h2 class="display-5 mb-1">
                     <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
                         %}</a>
                 </h2>
-                <p class="mb-3 text-muted">{%= post.createdAt.toUTCString() %}</p>
+                <!-- <p class="text-justify" style="text-indent: 30px;">
+                    <img class="image" src="{%= post.imageUrl %}"
+                        alt="{%= post.blogCategoryId.name%}+'-'+{%= post._id %}">
+                    {%= post.content %}
+                </p> -->
+                <p class="mb-3 text-muted">
+                    <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
+                    {%= post.createdAt.toUTCString() %}
+                </p>
                 <p class="text-justify">>{%- post.content.substring(0, 500) %}
                     <span id="dots-{%= post._id %}">...</span>
                     <span id="more-{%= post._id %}" style="display: none;">
@@ -36,19 +45,39 @@
                     <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
                         id="myBtn-{%= post._id %}">readmore</a>
                 </p>
-                <div class="text-end">
-                    <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
-                    <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
-                        onclick="return confirm('Are you sure?')">Delete</a>
+                <div class="row justify-content-between mt-4">
+                    <div class="col d-flex justify-content-start gap-5">
+                        <a href="#" type="button" class="btn btn-primary position-relative" nav-icon>
+                            Like
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                        <a href="#" type="button" class="btn btn-primary position-relative" nav-icon>
+                            Visited
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col d-flex justify-content-end gap-2">
+                        <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
+                        <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
                 </div>
             </article>
+            <hr class="bg-danger border-2 border-top border-danger" />
             {% } %}
             <!-- Pagination -->
             <nav class="p-3 text-center" aria-label="Pagination">
-                <a class="btn btn-light me-2" href={%=paginations.current==1 ?"javascript:void(0);" :pageUrl+ "&"
-                    +"page"+"="+details.pages.previous %}>&larr;</a>
+                <a class="btn btn-light me-2" href={%=paginations.current==1 ?"javascript:void(0);" :pageUrl +"page"+"="+details.pages.previous %}>&larr;</a>
                 {% if (details.pages.current > 3) { %}
-                <a class=" btn btn-secondary" href="{%= pageUrl %}&page=1">
+                <a class=" btn btn-secondary" href="{%= pageUrl %}page=1">
                     1
                 </a>
                 {% }%}
@@ -60,7 +89,7 @@
                 {% for (const link in paginations) { %}
                 {% if (paginations[link]) { %}
                 <a class="btn btn-{%= link=='current'? 'primary' : 'secondary' %}"
-                    href="{%= pageUrl %}&page={%= paginations[link] %}">
+                    href="{%= pageUrl %}page={%= paginations[link] %}">
                     {%= paginations[link] %}
                 </a>
                 {% } %}
@@ -69,12 +98,12 @@
                 {% if (details.pages.total - 3 > details.pages.current ) { %} <span class="btn btn-light">...</span>
                 {% } %}
                 {% if (details.pages.total - 2 > details.pages.current ) { %}
-                <a class="btn btn-secondary" href="{%= pageUrl %}&page={%= details?.pages.total%}">
+                <a class="btn btn-secondary" href="{%= pageUrl %}page={%= details?.pages.total%}">
                     {%= details.pages.total %}
                 </a>
                 {% }%}
                 <a class="btn btn-light me-2" href={%=paginations.current==details.pages.total ?"javascript:void(0);"
-                    :pageUrl+ "&" +"page"+"="+details.pages.next %}>&rarr;</a>
+                    :pageUrl +"page"+"="+details.pages.next %}>&rarr;</a>
             </nav>
             <!-- totalRecords -->
             <div class=" text-center mb-4">

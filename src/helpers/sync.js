@@ -12,12 +12,53 @@ module.exports = async () => {
     console.log(" - BlogPost Deleted All"),
   );
 
-  const user = await User.create({
-    email: "test@test.com",
-    password: "12345678",
-    firstName: "Test",
-    lastName: "Test",
-  });
+  const user = await User.create([
+    {
+      username: "test",
+      email: "test@test.com",
+      password: "aA*123456",
+      firstName: "Test",
+      lastName: "Test",
+      isAdmin: true,
+      isActive: true,
+    },
+    {
+      username: " test1",
+      email: "test1@test1.com",
+      password: "aA*123456",
+      firstName: "Test1",
+      lastName: "Test1",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      username: "test2",
+      email: "test2@test2.com",
+      password: "aA*123456",
+      firstName: "Test2",
+      lastName: "Test2",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      username: "test3",
+      email: "test3@test3.com",
+      password: "aA*123456",
+      firstName: "Test3",
+      lastName: "Test3",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      username: "test4",
+      email: "test4@test4.com",
+      password: "aA*123456",
+      firstName: "Test4",
+      lastName: "Test4",
+      isAdmin: false,
+      isActive: true,
+    },
+  ]);
 
   const categories = [
     "World",
@@ -31,15 +72,26 @@ module.exports = async () => {
     "Style",
     "Travel",
   ];
+  const images = [
+    "https://cdn.pixabay.com/photo/2015/05/31/10/55/man-791049_1280.jpg",
+    "https://cdn.pixabay.com/photo/2019/09/17/18/48/computer-4484282_1280.jpg",
+    "https://cdn.pixabay.com/photo/2015/10/02/15/00/diary-968592_1280.jpg",
+    "https://cdn.pixabay.com/photo/2017/04/05/01/16/food-2203732_1280.jpg",
+    "https://cdn.pixabay.com/photo/2013/11/14/20/18/typewriter-210640_1280.jpg",
+    "https://cdn.pixabay.com/photo/2015/02/01/21/16/chalkboard-620316_1280.jpg",
+    "https://cdn.pixabay.com/photo/2016/10/09/14/00/vegetable-juices-1725835_1280.jpg",
+    "https://geekflare.com/wp-content/uploads/2016/04/featured-image-generator.jpg",
+  ];
   const now = new Date();
   for (let category of categories) {
     const blogCategory = await BlogCategory.create({
       name: category,
     });
-    // Example Posts:
     for (let key in [...Array(22)]) {
+      let newKey = key % 4;
+      let imageKey = key % 7;
       await BlogPost.create({
-        userId: user._id,
+        userId: user.at(newKey)._id,
         blogCategoryId: blogCategory._id,
         title: `Sample ${category} Post -${key}`,
         content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, voluptate quaerat harum quos quis atque tenetur voluptatem quod exercitationem, neque aliquam libero temporibus sint odio ratione sed, officia dolorum ad.
@@ -53,7 +105,8 @@ module.exports = async () => {
         Eos temporibus aliquam repudiandae ducimus nam asperiores explicabo accusamus in, recusandae doloremque illum voluptates atque, dolor numquam omnis iusto, esse praesentium odio ad fuga mollitia voluptate? Quis odio quasi cum!
         Odit blanditiis ducimus corrupti ullam eos impedit maxime laudantium beatae quibusdam! Sapiente quasi dicta fugiat est cumque harum voluptatibus quo alias laudantium, dolore nobis numquam. Voluptate eveniet vero sequi asperiores.`,
         published: Boolean(key % 2),
-        createdAt: now.getTime() + Math.random() * 10e8, // Random Time
+        createdAt: now.getTime() + Math.random() * 10e8,
+        imageUrl: images.at(imageKey),
       });
     }
   }

@@ -40,3 +40,21 @@ h6 {
   top: 0;
   z-index: 1000; /* Opsiyonel: Z-index değeri, diğer elemanlarla çakışmayı önlemek için ayarlanabilir. */
 }
+
+.big-image {
+  float: left;
+  width: 420px;
+  height: auto;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.small-image {
+  float: left;
+  width: 240px;
+  height: auto;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}

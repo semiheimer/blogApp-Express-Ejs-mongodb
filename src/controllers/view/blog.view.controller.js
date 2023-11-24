@@ -1,17 +1,15 @@
 "use strict";
 const { BlogCategory, BlogPost } = require("../../models/blogModel");
 
-module.exports.BlogPost = {
+module.exports.BlogPostView = {
   list: async (req, res) => {
-    const data = await res.getModelList(BlogPost, "blogCategoryId");
+    const data = await req.getModelList(BlogPost, "blogCategoryId");
     const categories = await BlogCategory.find();
     const recentPosts = await BlogPost.find()
       .sort({ createdAt: "desc" })
       .limit(4);
 
-    if (!req.url.includes("?")) req.url += "?";
-
-    const details = await res.getModelListDetails(BlogPost);
+    const details = await req.getModelListDetails(BlogPost);
 
     const paginations = {
       beforePrevious: details.pages.beforePrevious,
@@ -20,7 +18,13 @@ module.exports.BlogPost = {
       next: details.pages.next,
       afterNext: details.pages.afterNext,
     };
-    const pageUrl = req.url.split("&")[0];
+
+    if (!req.originalUrl.includes("filter")) {
+      req.originalUrl = req.originalUrl.split("&").join("");
+    } else {
+      req.originalUrl += "&";
+    }
+    req.originalUrl = req.originalUrl.split("page")[0];
 
     res.render("postList", {
       paginations,
@@ -28,7 +32,7 @@ module.exports.BlogPost = {
       posts: data,
       categories,
       recentPosts,
-      pageUrl,
+      pageUrl: req.originalUrl,
     });
   },
 
@@ -41,6 +45,7 @@ module.exports.BlogPost = {
       res.render("postForm", {
         categories: await BlogCategory.find(),
         post: null,
+        path: "create",
       });
     }
   },
@@ -65,6 +70,7 @@ module.exports.BlogPost = {
       res.redirect("/posts/" + req.params.postId);
     } else {
       res.render("postForm", {
+        path: "update",
         categories: await BlogCategory.find(),
         post: await BlogPost.findOne({ _id: req.params.postId }).populate(
           "blogCategoryId",
@@ -75,6 +81,6 @@ module.exports.BlogPost = {
 
   delete: async (req, res) => {
     const data = await BlogPost.deleteOne({ _id: req.params.postId });
-    res.redirect("/");
+    res.redirect("/posts");
   },
 };

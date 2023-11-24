@@ -1,12 +1,11 @@
 "use strict";
-require("express-async-errors");
+const { BadRequestError } = require("../../errors/customErrors");
+const passwordValidator = require("../../helpers/passwordValidator");
 const User = require("../../models/userModel");
 
 module.exports.User = {
   list: async (req, res) => {
-    // const data = await User.find()
-    // const data = await User.find(search).sort(sort).skip(skip).limit(limit).populate(populate)
-    const data = await res.getModelList(User);
+    const data = await req.getModelList(User);
 
     res.status(200).send({
       error: false,
@@ -16,8 +15,11 @@ module.exports.User = {
   },
 
   create: async (req, res) => {
+    if (!passwordValidator(req.body?.password))
+      throw new BadRequestError(
+        "1 numeric 1 alphanumeric 1 special char and at least 8 char are necessary",
+      );
     const data = await User.create(req.body);
-
     res.status(201).send({
       error: false,
       body: req.body,

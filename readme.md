@@ -1,6 +1,6 @@
 ## Express.js MongoDB Blog Site
 
-![alt mainpage](assets/images/blogApp.png)
+![alt mainpage](public/assets/images/blogApp.png)
 This is a simple blog site built using Express.js, MongoDB, Mongoose, and EJS. It allows users to create, read, update, and delete blog posts.
 
 ## Features

@@ -1,28 +1,23 @@
 "use strict";
-/* -------------------------------------------------------
-    EXPRESSJS - TODO Project with Sequelize
-------------------------------------------------------- */
-
+const { mongoose } = require("mongoose");
 module.exports = (err, req, res, next) => {
+  const isValidationOrCastError =
+    err instanceof mongoose.Error.ValidationError ||
+    err instanceof mongoose.Error.CastError;
+  if (isValidationOrCastError) err.statusCode = 400;
 
-    const errorStatusCode = res.errorStatusCode ?? 500
+  const statusCode = err.statusCode || 500;
 
-    const data = {
-        error: true, // special data
-        message: err.message, // error string message
-        cause: err.cause, // error option cause
-        // stack: err.stack, // error details
-        body: req.body,
-    }
+  const data = {
+    error: true,
+    message: err.message,
+    cause: err.cause,
+    body: req.body,
+  };
 
-    // console.log(req.url)
-
-    if (req.url.startsWith('/api')) {
-
-        res.status(errorStatusCode).send(data)
-        
-    } else {
-
-        res.render('error', { data })
-    }
-}
+  if (req.url.startsWith("/api")) {
+    return res.status(statusCode).send(data);
+  } else {
+    return res.render("error", { data });
+  }
+};

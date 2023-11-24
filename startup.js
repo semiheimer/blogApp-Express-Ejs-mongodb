@@ -14,12 +14,15 @@ module.exports = function (app, express) {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use("/assets", express.static("./public/assets"));
-
+  app.all("/", (req, res) => {
+    res.redirect("/posts?page=1");
+  });
   app.use(require("./src/middlewares/findSearchSortPage"));
 
   app.use("/api/v1/user", require("./src/routes/api/user.api.route"));
   app.use("/api/v1/blog", require("./src/routes/api/blogPost.api.route"));
-  app.use("/", require("./src/routes/view/blogPost.view.route"));
+  app.use("/posts", require("./src/routes/view/blogPost.view.route"));
+  app.use("/auth", require("./src/routes/view/user.view.route"));
 
   app.use(require("./src/errorHandler"));
 };

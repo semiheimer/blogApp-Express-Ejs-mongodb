@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   let skip = Number(req.query?.skip);
   skip = skip > 0 ? skip : page * limit;
 
-  res.getModelList = async (Model, populate = null) => {
+  req.getModelList = async (Model, populate = null) => {
     return await Model.find(search)
       .sort(sort)
       .skip(skip)
@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
       .populate(populate);
   };
 
-  res.getModelListDetails = async (Model) => {
+  req.getModelListDetails = async (Model) => {
     const data = await Model.find(search);
     let details = {
       search,

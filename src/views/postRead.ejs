@@ -19,9 +19,13 @@
                         %}</a>
                 </h2>
                 <p class="blog-post-meta">{%= post.createdAt.toUTCString() %}</p>
-                {%= post.content %}
-            </article>
+                <p class="text-justify" style="text-indent: 30px;">
+                    <img class="big-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
+                    {%= post.content %}
+                </p>
         </div>
+        </article>
+    </div>
     </div>
 </main>
 <!-- main end -->

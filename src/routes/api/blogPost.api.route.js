@@ -1,18 +1,6 @@
 "use strict";
 const router = require("express").Router();
-const {
-  BlogCategory,
-  BlogPost,
-} = require("../../controllers/api/blog.api.controller");
-
-// router.route("/category").get(BlogCategory.list).post(BlogCategory.create);
-
-// router
-//   .route("/category/:categoryId")
-//   .get(BlogCategory.read)
-//   .put(BlogCategory.update)
-//   .delete(BlogCategory.delete);
-// router.route("/post").get(BlogPost.list).post(BlogPost.create);
+const { BlogPost } = require("../../controllers/api/blog.api.controller");
 
 router
   .route("/post/:postId")

@@ -5,17 +5,19 @@
     <div class="row g-5">
         <div class="col-md-12 p-3">
             <p>
-                <a class="btn btn-sm btn-secondary" href="/">Go Home</a>
+                <a class="btn btn-sm btn-secondary" href="/posts">Go Back</a>
             </p>
             <h1>{%= post?.title %}</h1>
             <form action="" method="POST">
                 <table class="table table-striped">
+                    {% if(path=="update") { %}
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th># {%= post?.id %}</th>
                         </tr>
                     </thead>
+                    {% }%}
                     <tbody>
                         <tr>
                             <td>Category</td>
@@ -36,7 +38,7 @@
                         <tr>
                             <td>Content</td>
                             <td>
-                                <textarea name="content" class="form-control">{%= post?.content %}</textarea>
+                                <textarea name="content" class="form-control" rows="12">{%= post?.content %}</textarea>
                             </td>
                         </tr>
                         <tr>
@@ -55,7 +57,10 @@
                     </tbody>
                 </table>
                 <p>
+
+                <div class="d-flex flex-row-reverse">
                     <button class="btn btn-primary" type="submit">SUBMIT</button>
+                </div>
                 </p>
             </form>
         </div>
