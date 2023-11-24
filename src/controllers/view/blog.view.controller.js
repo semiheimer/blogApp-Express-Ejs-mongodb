@@ -18,8 +18,11 @@ module.exports.BlogPostView = {
       next: details.pages.next,
       afterNext: details.pages.afterNext,
     };
+    if (!req.originalUrl.includes("?")) req.originalUrl += "?";
 
-    if (!req.originalUrl.includes("filter")) {
+    const regex = /\b(filter|sort|search)\b/i;
+
+    if (!regex.test(req.originalUrl)) {
       req.originalUrl = req.originalUrl.split("&").join("");
     } else {
       req.originalUrl += "&";

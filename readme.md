@@ -35,12 +35,15 @@ Installation is done using the
 $ npm install
 ```
 
-#env file
 PORT=8000
-MONGODB=mongodb://127.0.0.1:27017/blogAPP
-SECRET_KEY=a7db7ashd7ashd7ahsd7ashd7ashd7hasd7g2367f4e219er
-PAGE_SIZE=10
 NODE_ENV="development"
+MONGODB=mongodb://127.0.0.1:27017/blogAPP
+PAGE_SIZE=10
+SECRET_KEY=a7db7ashd7ashd7ahghsd7ashd7ashd7hasd7g2367f4e219er
+ACCESS_KEY=aspytda87shd7ahsdh7as7dha7dh7sadhas7dha7sdha7sdhas
+REFRESH_KEY=ijasd8ahsd8jhas8dha8sd8asdhn8ashd8ashd8ahsd\*ds9d9f
+ACCESS_JWT_EXPIRES_IN=60m
+REFRESH_JWT_EXPIRES_IN=3d
 
 ## Usage
 

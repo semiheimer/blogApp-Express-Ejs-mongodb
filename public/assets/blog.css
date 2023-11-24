@@ -1,5 +1,13 @@
 /* stylelint-disable stylistic/selector-list-comma-newline-after */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
+main {
+  flex: 1;
+}
 .blog-header-logo {
   font-family: "Playfair Display", Georgia, "Times New Roman",
     serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
@@ -57,4 +65,5 @@ h6 {
   margin-right: 10px;
   margin-bottom: 10px;
   margin-top: 15px;
+  max-height: 240px;
 }

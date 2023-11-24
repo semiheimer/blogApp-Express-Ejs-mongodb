@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+      select: false,
       set: (password) => passwordEncrypt(password),
     },
     isActive: {
@@ -49,5 +50,9 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.plugin(uniqueValidator, {
+  message: "This {PATH} is exist",
+});
 
 module.exports = mongoose.model("User", UserSchema);

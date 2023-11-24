@@ -35,6 +35,9 @@ dependencies:
   mongoose:
     specifier: ^8.0.0
     version: 8.0.1
+  mongoose-unique-validator:
+    specifier: ^4.0.0
+    version: 4.0.0(mongoose@8.0.1)
   morgan:
     specifier: ^1.10.0
     version: 1.10.0
@@ -657,6 +660,14 @@ packages:
     resolution: {integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==}
     dev: false
 
+  /lodash.foreach@4.5.0:
+    resolution: {integrity: sha512-aEXTF4d+m05rVOAUG3z4vZZ4xVexLKZGF0lIxuHZ1Hplpk/3B6Z1+/ICICYRLm7c41Z2xiejbkCkJoTlypoXhQ==}
+    dev: false
+
+  /lodash.get@4.4.2:
+    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    dev: false
+
   /lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
     dev: false
@@ -679,6 +690,10 @@ packages:
 
   /lodash.isstring@4.0.1:
     resolution: {integrity: sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw==}
+    dev: false
+
+  /lodash.merge@4.6.2:
+    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: false
 
   /lodash.once@4.1.1:
@@ -790,6 +805,17 @@ packages:
       '@mongodb-js/saslprep': 1.1.1
       bson: 6.2.0
       mongodb-connection-string-url: 2.6.0
+    dev: false
+
+  /mongoose-unique-validator@4.0.0(mongoose@8.0.1):
+    resolution: {integrity: sha512-lOvL7wOZ8wM2Kggk6zPZuglmld7hmzf6TdNk/h9EidTH9iZNLl3Y2ZgRPjYd/so1AODLawehY56roa6HjX6jew==}
+    peerDependencies:
+      mongoose: ^7.0.0
+    dependencies:
+      lodash.foreach: 4.5.0
+      lodash.get: 4.4.2
+      lodash.merge: 4.6.2
+      mongoose: 8.0.1
     dev: false
 
   /mongoose@8.0.1:

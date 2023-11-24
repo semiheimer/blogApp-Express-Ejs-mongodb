@@ -23,6 +23,5 @@ module.exports = function (app, express) {
   app.use("/api/v1/blog", require("./src/routes/api/blogPost.api.route"));
   app.use("/posts", require("./src/routes/view/blogPost.view.route"));
   app.use("/auth", require("./src/routes/view/user.view.route"));
-
-  app.use(require("./src/errorHandler"));
+  app.use(require("./src/middlewares/errorHandler"));
 };
