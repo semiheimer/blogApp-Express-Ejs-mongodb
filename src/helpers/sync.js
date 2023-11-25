@@ -1,7 +1,7 @@
 "use strict";
 
-const User = require("../models/userModel");
-const { BlogCategory, BlogPost } = require("../models/blogModel");
+const { BlogCategory, BlogPost } = require("../models/Blog.model");
+const User = require("../models/User.model");
 
 module.exports = async () => {
   await User.deleteMany().then(() => console.log(" - User Deleted All"));
@@ -17,8 +17,8 @@ module.exports = async () => {
       username: "test",
       email: "test@test.com",
       password: "aA*123456",
-      firstName: "Test",
-      lastName: "Test",
+      firstname: "Test",
+      lastname: "Test",
       isAdmin: true,
       isActive: true,
     },
@@ -26,8 +26,8 @@ module.exports = async () => {
       username: " test1",
       email: "test1@test1.com",
       password: "aA*123456",
-      firstName: "Test1",
-      lastName: "Test1",
+      firstname: "Test1",
+      lastname: "Test1",
       isAdmin: false,
       isActive: true,
     },
@@ -35,8 +35,8 @@ module.exports = async () => {
       username: "test2",
       email: "test2@test2.com",
       password: "aA*123456",
-      firstName: "Test2",
-      lastName: "Test2",
+      firstname: "Test2",
+      lastname: "Test2",
       isAdmin: false,
       isActive: true,
     },
@@ -44,8 +44,8 @@ module.exports = async () => {
       username: "test3",
       email: "test3@test3.com",
       password: "aA*123456",
-      firstName: "Test3",
-      lastName: "Test3",
+      firstname: "Test3",
+      lastname: "Test3",
       isAdmin: false,
       isActive: true,
     },
@@ -53,8 +53,8 @@ module.exports = async () => {
       username: "test4",
       email: "test4@test4.com",
       password: "aA*123456",
-      firstName: "Test4",
-      lastName: "Test4",
+      firstname: "Test4",
+      lastname: "Test4",
       isAdmin: false,
       isActive: true,
     },

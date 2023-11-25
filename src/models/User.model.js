@@ -2,7 +2,10 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
-const { createRefreshJWT, createAccessJWT } = require("../helpers/tokenHelper");
+const {
+  createRefreshJWT,
+  createAccessJWT,
+} = require("../helpers/tokenHelpers");
 
 const userSchema = new mongoose.Schema(
   {
@@ -43,8 +46,8 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
 
-    firstName: { type: String, minLength: 3, required: true },
-    lastName: { type: String, minLength: 2, required: true },
+    firstname: { type: String, minLength: 3, required: true },
+    lastname: { type: String, minLength: 2, required: true },
   },
   {
     collection: "users",

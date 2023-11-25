@@ -15,60 +15,64 @@
 <main class="container">
     <div class="row g-5">
         <div class="col-md-8">
+            {% if (user) { %}
             <div class="admin-area text-end">
                 <a class="btn btn-primary" href="/posts/create">New Post</a>
             </div>
+            {% } %}
             <h3 class="pb-4 fst-italic border-bottom">
                 Welcome!
             </h3>
             <!-- BlogPosts -->
             {% for (let post of posts) { %}
             <article class="my-4">
-                <h5 class="display-6 mb-4">
-                    <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
-                        %}</a>
-                </h5>
-                <!-- <p class="text-justify" style="text-indent: 30px;">
-                    <img class="image" src="{%= post.imageUrl %}"
-                        alt="{%= post.blogCategoryId.name%}+'-'+{%= post._id %}">
-                    {%= post.content %}
-                </p> -->
-                <p class="mb-3 text-muted">
-                    <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
-                    {%= post.createdAt.toUTCString() %}
-                </p>
-                <p class="text-justify">{%= post.content.substring(0, 500) %}
-                    <span id="dots-{%= post._id %}">...</span>
-                    <span id="more-{%= post._id %}" style="display: none;">
-                        {%= post.content.substring(501) %}
-                    </span>
-                    <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
-                        id="myBtn-{%= post._id %}">readmore</a>
-                </p>
-                <div class="row justify-content-between mt-4">
-                    <div class="col d-flex justify-content-start gap-5">
-                        <a href="#" type="button" class="btn btn-primary position-relative" nav-icon>
-                            Like
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
-                                <span class="visually-hidden">unread messages</span>
-                            </span>
-                        </a>
-                        <a href="#" type="button" class="btn btn-primary position-relative" nav-icon>
-                            Visited
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
-                                <span class="visually-hidden">unread messages</span>
-                            </span>
-                        </a>
+                <div class="d-flex justify-content-between">
+                    <h5 class="display-6 mb-4">
+                        <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
+                            %}</a>
+                    </h5>
+                    <div class="d-inline-block position-relative" nav-icon>
+                        <i class="bi bi-eye fs-3 me-2" style="color: blue;"></i>
+                        <span class="position-absolute translate-middle badge rounded-pill bg-success"
+                            style="top:10px;">
+                            {%= post?.visitedUsers.length %}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </div>
+                </div>
+                <div class="d-block">
+                    <p class="mb-3 text-muted">
+                        <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
+                        {%= post.createdAt.toUTCString() %}
+                    </p>
+                    <p class="text-justify">{%= post.content.substring(0, 500) %}
+                        <a href="/posts/{%= post._id %}"><span id="dots-{%= post._id %}">...readmore</span></a>
+
+                        <!-- <span id="more-{%= post._id %}" style="display: none;">
+                                        {%= post.content.substring(501) %}
+                                    </span> -->
+                        <!-- <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
+                                        id="myBtn-{%= post._id %}">readmore</a> -->
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <div class="col d-flex justify-content-start gap-5">
+                        <button class="btn btn-primary position-relative" onclick="like('{%= post._id %}')">
+                            <i class="bi bi-eye fs-3 me-2" style="color: blue;"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {%= post?.likedUsers.length %}
+                            </span>
+                        </button>
+                    </div>
+
+                    {% if (user) { %}
                     <div class="col d-flex justify-content-end gap-2 align-items-center">
                         <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
                         <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
                             onclick="return confirm('Are you sure?')">Delete</a>
                     </div>
+                    {% } %}
                 </div>
             </article>
             <hr class="bg-danger border-2 border-top border-danger" />
@@ -141,7 +145,8 @@
 
 {%- include('partials/incFooter') %}
 
-<script>
+<!--to open readmore clicked -->
+<!-- <script>
     function readMore(postId) {
         const dots = document.getElementById("dots-" + postId);
         const moreText = document.getElementById("more-" + postId);
@@ -154,6 +159,30 @@
             dots.style.display = "none";
             btnText.innerHTML = "read less";
             moreText.style.display = "inline";
+        }
+    }
+</script> -->
+
+<script>
+    async function like(postId) {
+        try {
+            const response = await fetch(`/api/v1/posts/${postId}/like`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // İsteğe özel başlıkları burada ekleyebilirsiniz
+                },
+                // Eğer POST veya PUT gibi başka bir metod kullanacaksanız, body'yi de burada belirleyebilirsiniz.
+            });
+
+            if (!response.ok) {
+                throw new Error(`API isteği başarısız, HTTP hata kodu: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log('API Yanıtı:', responseData);
+        } catch (error) {
+            console.error('API isteği sırasında bir hata oluştu:', error);
         }
     }
 </script>

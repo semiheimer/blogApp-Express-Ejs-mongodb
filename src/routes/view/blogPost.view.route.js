@@ -7,8 +7,8 @@ const {
 
 router.all("/", BlogPostView.list);
 router.all("/create", BlogPostView.create);
-router.all("/:postId", BlogPostView.read);
 router.all("/:postId/update", BlogPostView.update);
 router.all("/:postId/delete", BlogPostView.delete);
+router.all("/:postId", BlogPostView.read);
 
 module.exports = router;

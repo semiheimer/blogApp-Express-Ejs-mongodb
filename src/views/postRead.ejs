@@ -5,24 +5,33 @@
     <div class="row g-5">
         <div class="col-md-12 p-3">
             <!-- BlogPost Read -->
-            <div class="admin-area text-end">
-                {%= post.published?"Published":"Unpublished" %}
-                <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
-                <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
-                    onclick="return confirm('Are you sure?')">Delete</a>
-            </div>
             <article class="blog-post">
-                <a href="/posts?filter[blogCategoryId]={%= post.blogCategoryId._id %}"># {%= post.blogCategoryId.name
-                    %}</a>
+                <a href="/posts?filter[blogCategoryId]={%= post.blogCategoryId._id %}">
+                    <span>back to {%= post.blogCategoryId.name
+                        %} posts</span>
+                </a>
                 <h2 class="display-5 mb-1">
                     <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
                         %}</a>
                 </h2>
-                <p class="blog-post-meta">{%= post.createdAt.toUTCString() %}</p>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="blog-post-meta">{%= post.createdAt.toUTCString() %}</span>
+                    <span class="badge text-bg-{%= post.published? 'success':'warning' %} align-right">{%=
+                        post.published?"Published":"Unpublished"
+                        %}</span>
+                </div>
                 <p class="text-justify" style="text-indent: 30px;">
                     <img class="big-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
                     {%= post.content %}
                 </p>
+                {% if (user) { %}
+                <div class="admin-area text-end">
+
+                    <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
+                    <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
+                        onclick="return confirm('Are you sure?')">Delete</a>
+                </div>
+                {% } %}
         </div>
         </article>
     </div>

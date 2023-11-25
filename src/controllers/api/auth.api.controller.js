@@ -1,10 +1,10 @@
 "use strict";
 const { UnauthenticatedError } = require("../../errors/customErrors");
-const { verifyRefreshJWT } = require("../../helpers/tokenHelper");
+const { verifyRefreshJWT } = require("../../helpers/tokenHelpers");
 const registerCreateUser = require("../../middlewares/registerOrCreateUser");
 const UserModel = require("../../models/User.model");
 
-module.exports.AuthApiController = {
+module.exports.authApiController = {
   register: registerCreateUser,
   login: async (req, res) => {
     /*

@@ -20,22 +20,23 @@
         <nav class=" border-bottom lh-1 py-3">
             <div class="row flex-nowrap justify-content-evenly">
                 <div class="col-8">
-                    <div class="d-flex align-items-center ">
-                        <img src="/assets/images/fluency-96.png" alt="" style="width:48px;">
-                        <a class="blog-header-logo text-body-emphasis text-decoration-none ms-2" href="/">MY
-                            BLOG</a>
+                    <div class="d-flex align-items-center">
+                        <a class=" text-decoration-none me-2" href="/">
+                            <img src="/assets/images/fluency-96.png" alt="" style="width:48px;">
+                        </a>
+                        <span class="d-inline-block " style="font-size: 2rem;">MY BLOG</span>
                     </div>
+
                 </div>
                 {% if (user) { %}
                 <div class="admin-area col-4 d-flex justify-content-end align-items-center">
-                    <span class="px-3">{%= user.email %}</span>
-                    <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+                    <span class="px-3 te"><b>{%= user?.email %}</b></span>
+                    <a class="btn btn-sm btn-secondary" href="/auth/logout">Logout</a>
                 </div>
                 {% } else { %}
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="btn btn-sm btn-secondary" href="/auth/login">Login</a>
                 </div>
                 {% } %}
-
             </div>
         </nav>

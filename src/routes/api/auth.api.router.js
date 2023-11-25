@@ -1,6 +1,8 @@
 "use strict";
 const router = require("express").Router();
-const auth = require("../../controllers/api/auth.api.controller");
+const {
+  authApiController: auth,
+} = require("../../controllers/api/auth.api.controller");
 
 router.post("/login", auth.login);
 router.get("/refresh", auth.refresh);

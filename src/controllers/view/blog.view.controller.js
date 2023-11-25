@@ -1,6 +1,6 @@
 "use strict";
 const { BlogCategory, BlogPost } = require("../../models/Blog.model");
-
+// const data = await Pizza.updateOne({ _id: req.params.id }, { $push: { toppings: toppings } })
 module.exports.blogPostViewController = {
   list: async (req, res) => {
     const data = await req.getModelList(BlogPost, "blogCategoryId");
@@ -30,6 +30,7 @@ module.exports.blogPostViewController = {
     req.originalUrl = req.originalUrl.split("page")[0];
 
     res.render("postList", {
+      user: req.session?.user,
       paginations,
       details,
       posts: data,
@@ -49,6 +50,7 @@ module.exports.blogPostViewController = {
         categories: await BlogCategory.find(),
         post: null,
         path: "create",
+        user: req.session?.user,
       });
     }
   },
@@ -57,8 +59,13 @@ module.exports.blogPostViewController = {
     const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
       "blogCategoryId",
     );
+    const data1 = await BlogPost.updateOne(
+      { _id: req.params.postId },
+      { $push: { visitedUsers: req.session?.user.id } },
+    );
     res.render("postRead", {
       post: data,
+      user: req.session?.user,
     });
   },
 
@@ -73,6 +80,7 @@ module.exports.blogPostViewController = {
       res.redirect("/posts/" + req.params.postId);
     } else {
       res.render("postForm", {
+        user: req.session?.user,
         path: "update",
         categories: await BlogCategory.find(),
         post: await BlogPost.findOne({ _id: req.params.postId }).populate(

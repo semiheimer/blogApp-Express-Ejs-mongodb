@@ -112,7 +112,29 @@ module.exports.BlogPost = {
       newData: await BlogPost.findOne({ _id: req.params.postId }),
     });
   },
+  likePost: async (req, res) => {
+    const data = await BlogPost.findOne({
+      _id: req.params.postId,
+      likedUsers: { $in: req.session?.user.id },
+    });
 
+    if (!data) {
+      await BlogPost.updateOne(
+        { _id: req.params.postId },
+        { $push: { likedUsers: req.session?.user.id } },
+      );
+    } else {
+      await BlogPost.updateOne(
+        { _id: req.params.postId },
+        { $pull: { likedUsers: req.session?.user.id } },
+      );
+    }
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+    res.redirect(req.originalUrl);
+  },
   delete: async (req, res) => {
     const data = await BlogPost.deleteOne({ _id: req.params.postId });
 

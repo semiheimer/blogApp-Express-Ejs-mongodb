@@ -15,10 +15,7 @@
   },
   "host": "127.0.0.1:8000",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "securityDefinitions": {
     "JWT": {
       "type": "apiKey",
@@ -30,9 +27,7 @@
   "paths": {
     "/auth/login": {
       "post": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "Login",
         "description": "Login with username and password",
         "parameters": [
@@ -64,9 +59,7 @@
     },
     "/auth/refresh": {
       "post": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "Token Refresh",
         "description": "Refresh accessToken with  ",
         "parameters": [
@@ -99,9 +92,7 @@
     },
     "/auth/logout": {
       "get": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "Logout",
         "description": "No need any doing for logout. You must deleted Bearer Token from your browser.",
         "responses": {
@@ -113,9 +104,7 @@
     },
     "/users/": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "List Users",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>   <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>   <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
@@ -125,9 +114,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Create User",
         "description": "",
         "parameters": [
@@ -175,9 +162,7 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Get Single User",
         "description": "",
         "parameters": [
@@ -195,9 +180,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Update User",
         "description": "",
         "parameters": [
@@ -249,9 +232,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Delete User",
         "description": "",
         "parameters": [
@@ -284,9 +265,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Update User",
         "description": "",
         "parameters": [
@@ -340,9 +319,7 @@
     },
     "/flights/": {
       "get": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "List Flights",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>   <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>   <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
@@ -352,9 +329,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "Create Flight",
         "description": "",
         "parameters": [
@@ -376,9 +351,7 @@
     },
     "/flights/{id}": {
       "get": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "Get Single Flight",
         "description": "",
         "parameters": [
@@ -396,9 +369,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "Update Flight",
         "description": "",
         "parameters": [
@@ -424,9 +395,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "Delete Flight",
         "description": "",
         "parameters": [
@@ -459,9 +428,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Flights"
-        ],
+        "tags": ["Flights"],
         "summary": "Update Flight",
         "description": "",
         "parameters": [
@@ -489,9 +456,7 @@
     },
     "/passengers/": {
       "get": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "List Passengers",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>   <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>   <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
@@ -501,9 +466,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "Create Passenger",
         "description": "",
         "parameters": [
@@ -525,9 +488,7 @@
     },
     "/passengers/{id}": {
       "get": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "Get Single Passenger",
         "description": "",
         "parameters": [
@@ -545,9 +506,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "Update Passenger",
         "description": "",
         "parameters": [
@@ -573,9 +532,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "Delete Passenger",
         "description": "",
         "parameters": [
@@ -608,9 +565,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Passengers"
-        ],
+        "tags": ["Passengers"],
         "summary": "Update Passenger",
         "description": "",
         "parameters": [
@@ -638,9 +593,7 @@
     },
     "/reservations/": {
       "get": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "List Reservations",
         "description": "  You can send query with endpoint for search[], sort[], page and limit.  <ul> Examples:   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>   <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>   <li>URL/?<b>page=2&limit=1</b></li>  </ul>  ",
         "responses": {
@@ -650,9 +603,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "Create Reservation",
         "description": "",
         "parameters": [
@@ -672,19 +623,19 @@
                   "example": [
                     "...Passenger.objectId...",
                     {
-                      "firstName": "string",
-                      "lastName": "string",
+                      "firstname": "string",
+                      "lastname": "string",
                       "email": "string:email"
                     }
                   ],
                   "items": {
                     "type": "object",
                     "properties": {
-                      "firstName": {
+                      "firstname": {
                         "type": "string",
                         "example": "string"
                       },
-                      "lastName": {
+                      "lastname": {
                         "type": "string",
                         "example": "string"
                       },
@@ -708,9 +659,7 @@
     },
     "/reservations/{id}": {
       "get": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "Get Single Reservation",
         "description": "",
         "parameters": [
@@ -728,9 +677,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "Update Reservation",
         "description": "",
         "parameters": [
@@ -756,9 +703,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "Delete Reservation",
         "description": "",
         "parameters": [
@@ -791,9 +736,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "Update Reservation",
         "description": "",
         "parameters": [
@@ -821,9 +764,7 @@
     },
     "/reservations/{id}/passengers": {
       "get": {
-        "tags": [
-          "Reservations"
-        ],
+        "tags": ["Reservations"],
         "summary": "List Passengers of Reservation",
         "description": "",
         "parameters": [
@@ -950,10 +891,7 @@
             },
             "required": {
               "type": "array",
-              "example": [
-                true,
-                "Email field must be required."
-              ],
+              "example": [true, "Email field must be required."],
               "items": {
                 "type": "string"
               }
@@ -970,10 +908,7 @@
             },
             "validate": {
               "type": "array",
-              "example": [
-                null,
-                "Email type is not correct."
-              ],
+              "example": [null, "Email type is not correct."],
               "items": {
                 "type": "string"
               }
@@ -1134,7 +1069,7 @@
     "Passenger": {
       "type": "object",
       "properties": {
-        "firstName": {
+        "firstname": {
           "type": "object",
           "properties": {
             "type": {
@@ -1150,7 +1085,7 @@
             }
           }
         },
-        "lastName": {
+        "lastname": {
           "type": "object",
           "properties": {
             "type": {
@@ -1200,10 +1135,7 @@
             },
             "required": {
               "type": "array",
-              "example": [
-                true,
-                "Email field must be required."
-              ],
+              "example": [true, "Email field must be required."],
               "items": {
                 "type": "string"
               }
@@ -1220,10 +1152,7 @@
             },
             "validate": {
               "type": "array",
-              "example": [
-                null,
-                "Email type is not correct."
-              ],
+              "example": [null, "Email type is not correct."],
               "items": {
                 "type": "string"
               }
