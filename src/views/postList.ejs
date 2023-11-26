@@ -3,10 +3,13 @@
 <!-- Blog Categories -->
 <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
-        {% for (const category of categories ) { %}
-        <a class="nav-item nav-link link-body-emphasis"
-            href="/posts?filter[blogCategoryId]={%= category._id %}&page=1"><b>{%=
-                category.name %}</b></a>
+        {% const selectedCategory1=selectedCategory!=="undefined"?selectedCategory:"" %}
+        {% for (const category of categories) { %}
+        <a class="nav-item nav-link {%= selectedCategory1==category._id? 'link-underline':'' %}"
+            id='{%= category._id %}' href="/posts?filter[blogCategoryId]={%= category._id %}&page=1"
+            onclick="selectCategory(this, '{%= selectedCategory1 %}')"><b>{%=
+                category.name
+                %}</b></a>
         {% } %}
     </nav>
 </div>
@@ -83,4 +86,5 @@
             console.error('Updating likes failed', error);
         }
     }
+
 </script>

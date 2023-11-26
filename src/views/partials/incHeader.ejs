@@ -40,11 +40,11 @@
 
     <div class="container bg-body-tertiary mb-5 mt-1">
         <nav class="navbar navbar-expand-lg navbar-light border-bottom lh-1 py-3">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/images/fluency-96.png" alt="" style="width: 48px;">
-                    <span class="d-inline-block" style="font-size: 2rem;">MY BLOG</span>
-                </a>
+            <div class="container ">
+                <div class="navbar-brand d-flex align-items-center gap-3">
+                    <a href="/"><img src="/assets/images/fluency-96.png" alt="" style="width: 48px;"></a>
+                    <span class="ml-3" style="font-size: 2rem;">MY BLOG</span>
+                </div>
                 <div class="d-none d-md-block">
                     {% if (user) { %}
                     <span class="px-3 te"><b>{%= user?.email %}</b></span>
@@ -108,7 +108,8 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow">
                         {% if (user) { %}
                         <li class="dropdown-item"><span><b>{%= user?.email %}</b></span></li>
-                        <li class="dropdown-item"><a class="bi" href="/auth/logout">Logout</a>
+                        <li class="dropdown-item"><a class="text-body-emphasis text-decoration-none"
+                                href="/auth/logout">Logout</a>
                         </li>
                         {% } else { %}
                         <li class="dropdown-item"><a class="" href="/auth/login">Login</a></li>

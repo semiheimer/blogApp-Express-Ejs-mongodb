@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
   for (let key in search) search[key] = { $regex: search[key], $options: "i" };
 
   const filter = req.query?.filter || {};
+  req.selectedCategoryId = filter.blogCategoryId;
 
   search = { ...search, ...filter };
   const sort = req.query?.sort || { createdAt: "desc" };

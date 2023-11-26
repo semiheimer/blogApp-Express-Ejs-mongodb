@@ -37,6 +37,7 @@ module.exports.blogPostViewController = {
       categories,
       recentPosts,
       pageUrl: req.originalUrl,
+      selectedCategory: req?.selectedCategoryId,
     });
   },
 

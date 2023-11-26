@@ -66,3 +66,8 @@ h6 {
 .iconcolor {
   fill: white !important;
 }
+
+.link-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
