@@ -1,0 +1,31 @@
+<nav class="p-3 text-center" aria-label="Pagination">
+    <a class="btn btn-light me-2" href={%=paginations.current==1 ?"javascript:void(0);" :pageUrl +"page"+"="+details.pages.previous %}>&larr;</a>
+                {% if (details.pages.current > 3) { %}
+                <a class=" btn btn-secondary" href="{%= pageUrl %}page=1">
+        1
+    </a>
+    {% }%}
+    {% if (details.pages.current > 4) { %}
+    <span class="btn btn-light disabled me-2">
+        ...</span>
+    {% }%}
+    <!-- pages -->
+    {% for (const link in paginations) { %}
+    {% if (paginations[link]) { %}
+    <a class="btn btn-{%= link=='current'? 'primary' : 'secondary' %}"
+        href="{%= pageUrl %}page={%= paginations[link] %}">
+        {%= paginations[link] %}
+    </a>
+    {% } %}
+    {% } %}
+    <!-- pages -->
+    {% if (details.pages.total - 3 > details.pages.current ) { %} <span class="btn btn-light">...</span>
+    {% } %}
+    {% if (details.pages.total - 2 > details.pages.current ) { %}
+    <a class="btn btn-secondary" href="{%= pageUrl %}page={%= details?.pages.total%}">
+        {%= details.pages.total %}
+    </a>
+    {% }%}
+    <a class="btn btn-light me-2" href={%=paginations.current==details.pages.total ?"javascript:void(0);" :pageUrl
+        +"page"+"="+details.pages.next %}>&rarr;</a>
+            </nav>

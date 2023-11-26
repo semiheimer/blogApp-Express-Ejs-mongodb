@@ -14,6 +14,6 @@ try {
     console.log("http://127.0.0.1:" + PORT);
   });
 } catch (error) {
-  console.log(error);
+  console.log("Error: ", error);
   process.exit(1);
 }

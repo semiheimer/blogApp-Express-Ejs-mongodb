@@ -1,0 +1,64 @@
+{% for (let post of posts) { %}
+<article class="my-4 ">
+    <div class="d-flex justify-content-between">
+        <h5 class="display-6 mb-4">
+            {% if(user) { %}
+            <a href="/posts/{%= post._id %}" class="link-body-emphasis text-decoration-none">{%= post.title
+                %}</a>
+            {% } else { %}
+            <a href="/auth/login" class="link-body-emphasis text-decoration-none">{%= post.title
+                %}</a>
+            {% } %}
+        </h5>
+    </div>
+    <div class="d-block">
+        <p class="mb-3 text-muted">
+            <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
+            {%= post.createdAt.toUTCString() %}
+        </p>
+        <p class="text-justify">{%= post.content.substring(0, 500) %}
+            {%if(user) { %}
+            <a href="/posts/{%= post._id %}"><span id="dots-{%= post._id %}">...readmore</span></a>
+            {% } else { %}
+            <a href="/auth/login %}"><span id="dots-{%= post._id %}">...readmore</span></a>
+            {% } %}
+            <!-- <span id="more-{%= post._id %}" style="display: none;">
+                                        {%= post.content.substring(501) %}
+                                    </span> -->
+            <!-- <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
+                                        id="myBtn-{%= post._id %}">readmore</a> -->
+        </p>
+    </div>
+    <div class="d-flex justify-content-between mt-4">
+        <div class="d-flex gap-4">
+            <div class="d-inline-block position-relative">
+                {% if(user) { %}
+                <div onclick="like('{%= post._id %}')" style="cursor: pointer;">
+                    {% } else { %}
+                    <div>
+                        {% } %}
+                        <i class="bi bi-heart fs-3 me-2 text-danger"></i>
+                        <span id="likeButton_{%= post._id %}"
+                            class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:10px;">
+                            {%= post?.likedUsers.length %}
+                        </span>
+                    </div>
+                </div>
+                <div class="d-inline-block position-relative" nav-icon>
+                    <i class="bi bi-eye fs-3 me-2 text-primary"></i>
+                    <span class="position-absolute translate-middle badge rounded-pill bg-primary" style="top:10px;">
+                        {%= post?.visitedUsers.length %}
+                    </span>
+                </div>
+            </div>
+            {% if (user) { %}
+            <div class="col d-flex justify-content-end gap-2 align-items-center">
+                <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
+                <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
+                    onclick="return confirm('Are you sure?')">Delete</a>
+            </div>
+            {% } %}
+        </div>
+</article>
+<hr class="bg-danger border-2 border-top border-danger" />
+{% } %}

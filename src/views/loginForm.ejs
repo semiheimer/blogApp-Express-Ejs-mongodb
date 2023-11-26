@@ -12,22 +12,38 @@
                     <table class="table table-striped">
                         <tbody>
                             <tr>
+                                {% const userInput1= typeof userInput !=='undefined'? userInput : null %}
+                                {% const errorMessage1= typeof errorMessage !=='undefined'? errorMessage : null %}
                                 <td>E-Mail</td>
-                                <td><input type="text" name="email" required class="form-control" value="test@test.com">
+                                <td><input type="text" name="email" required class="form-control"
+                                        value="{%= userInput1?.email ? userInput1.email:'test@test.com' %}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Password</td>
                                 <td><input type="password" name="password" required class="form-control"
-                                        value="aA*123456">
+                                        value="{%= userInput1 ? userInput1.password:'aA*123456' %}">
+                                    {% if( errorMessage1) { %}
+                                    <label class="text-danger ms-1 mt-1">{%= errorMessage1 %}</label>
+                                    {% }%}
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td><label><input type="checkbox" name="rememberMe" value="1"> Remember Me</label></td>
                             </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p>
+                                        If you are not registered user, please <a href="/posts/create">sign up</a>.
+                                    </p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <p></p>
+
                     <div class="d-flex flex-row-reverse">
                         <button class="btn btn-primary" type="submit">Login</button>
                     </div>

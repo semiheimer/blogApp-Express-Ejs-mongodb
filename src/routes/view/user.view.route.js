@@ -6,5 +6,5 @@ const {
 
 router.all("/login", UserView.login);
 router.all("/logout", UserView.logout);
-
+router.all("/register", UserView.register);
 module.exports = router;

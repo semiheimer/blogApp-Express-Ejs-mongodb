@@ -129,11 +129,17 @@ module.exports.BlogPost = {
         { $pull: { likedUsers: req.session?.user.id } },
       );
     }
+    const newData = await BlogPost.findOne(
+      {
+        _id: req.params.postId,
+      },
+      { likedUsers: 1, _id: 0 },
+    );
+
     res.status(200).send({
       error: false,
-      result: data,
+      result: newData,
     });
-    res.redirect(req.originalUrl);
   },
   delete: async (req, res) => {
     const data = await BlogPost.deleteOne({ _id: req.params.postId });
