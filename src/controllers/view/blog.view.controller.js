@@ -29,7 +29,7 @@ module.exports.blogPostViewController = {
     }
     req.originalUrl = req.originalUrl.split("page")[0];
 
-    res.render("postList", {
+    res.render("blogPost/postList", {
       user: req.session?.user,
       paginations,
       details,
@@ -47,7 +47,7 @@ module.exports.blogPostViewController = {
 
       res.redirect("/post/" + data.id);
     } else {
-      res.render("postForm", {
+      res.render("blogPost/postForm", {
         categories: await BlogCategory.find(),
         post: null,
         path: "create",
@@ -64,7 +64,7 @@ module.exports.blogPostViewController = {
       { _id: req.params.postId },
       { $push: { visitedUsers: req.session?.user.id } },
     );
-    res.render("postRead", {
+    res.render("blogPost/postRead", {
       post: data,
       user: req.session?.user,
     });
@@ -80,7 +80,7 @@ module.exports.blogPostViewController = {
 
       res.redirect("/posts/" + req.params.postId);
     } else {
-      res.render("postForm", {
+      res.render("blogPost/postForm", {
         user: req.session?.user,
         path: "update",
         categories: await BlogCategory.find(),

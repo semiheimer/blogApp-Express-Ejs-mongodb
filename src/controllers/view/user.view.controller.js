@@ -24,10 +24,11 @@ module.exports.userViewController = {
           throw new UnauthenticatedError("This account is not active");
 
         req.session.user = {
-          id: user.id,
+          id: user._id,
           email: user.email,
           firstname: user.firstname,
           lastname: user.lastname,
+          isAdmin: user.isAdmin,
         };
 
         if (req.body?.rememberMe) {
@@ -35,14 +36,14 @@ module.exports.userViewController = {
         }
         res.redirect("/");
       } catch (error) {
-        res.render("loginForm", {
+        res.render("auth/loginForm", {
           user: req.session?.user,
           errorMessage: error.message,
           userInput: req.body || {},
         });
       }
     } else {
-      res.render("loginForm", {
+      res.render("auth/loginForm", {
         user: req.session?.user,
       });
     }
@@ -71,14 +72,14 @@ module.exports.userViewController = {
 
         res.redirect("/");
       } catch (error) {
-        res.render("registerForm", {
+        res.render("auth/registerForm", {
           user: req.session?.user,
           errorMessage: error.message,
           userInput: req.body || {},
         });
       }
     } else {
-      res.render("registerForm", {
+      res.render("auth/registerForm", {
         user: req.session.user,
       });
     }
