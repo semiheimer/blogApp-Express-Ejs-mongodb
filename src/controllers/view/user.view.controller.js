@@ -3,6 +3,7 @@ const {
   UnauthenticatedError,
   BadRequestError,
 } = require("../../errors/customErrors");
+const { paginate } = require("../../helpers/paginate");
 
 const User = require("../../models/User.model");
 
@@ -11,13 +12,8 @@ module.exports.userViewController = {
     const data = await req.getModelList(User);
     const details = await req.getModelListDetails(User);
 
-    const paginations = {
-      beforePrevious: details.pages.beforePrevious,
-      previous: details.pages.previous,
-      current: details.pages.current,
-      next: details.pages.next,
-      afterNext: details.pages.afterNext,
-    };
+    const paginations = paginate(details);
+
     if (!req.originalUrl.includes("?")) req.originalUrl += "?";
 
     const regex = /\b(filter|sort|search)\b/i;

@@ -1,34 +1,24 @@
 {% for (const post of posts) { %}
+{% console.log(post.isPublished)%}
 <article class="my-4 ">
     {% const url=user ? "/posts/"+post._id : "/auth/login" %}
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column mb-2">
         <a href="{%= url %}" class="link-body-emphasis text-decoration-none">
-            <h5 class="display-6 mb-4">{%= post.title %}</h5>
+            <h5 class="display-6">{%= post.title %}</h5>
         </a>
         <p class="text-muted">
             {%= post.createdAt.toUTCString() %}
         </p>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="small-div">
-                <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
-            </div>
-        </div>
-        <div class="col-8">
-            <p class="text-justify mx-3">
-                {%= post.content.substring(0, 500) %}
-                <a href="{%= url %}"><span id="dots-{%= post._id %}">...readmore</span></a>
-                <!-- <span id="more-{%= post._id %}" style="display: none;">
-                                                                        {%= post.content.substring(501) %}
-                                                                    </span> -->
-                <!-- <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
-                                                                        id="myBtn-{%= post._id %}">readmore</a> -->
-            </p>
-
-        </div>
+    <div class="mb-4">
+        <img src="{%= post.imageUrl %}" alt="{%= post.title %}"
+            style="width:200px; height:200px;  float:left; margin: 0px 15px 15px 0px;">
+        <p class="text-justify">
+            {%= post.content.substring(0, 500) %}
+            <a href="{%= url %}"><span id="dots-{%= post._id %}">...readmore</span></a>
+        </p>
     </div>
-    <div class="d-flex d-block mt-2">
+    <div class="d-flex justify-content-between">
         <div class="d-flex gap-4">
             <div class="d-inline-block position-relative">
                 <div onclick="like('{%= post._id %}')" style="cursor: pointer;">
@@ -46,9 +36,10 @@
                 </span>
             </div>
         </div>
+
         {% if (user) { %}
-        <div class="col d-flex justify-content-end gap-2 align-items-center">
-            <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
+        <div class="d-flex">
+            <a class="btn btn-sm btn-primary me-2" href="/posts/{%= post._id %}/update">Update</a>
             <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
                 onclick="return confirm('Are you sure?')">Delete</a>
         </div>

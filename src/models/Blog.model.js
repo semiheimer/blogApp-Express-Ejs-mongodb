@@ -42,7 +42,7 @@ const blogPostSchema = new mongoose.Schema(
       required: true,
     },
 
-    published: {
+    isPublished: {
       type: Boolean,
       default: true,
     },

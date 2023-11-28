@@ -10,9 +10,10 @@
                 <h3 class="text-center">Users</h3>
                 <form action="" method="POST">
                     <div class="table-responsive">
-                        <table class="table" id="sortableTable">
+                        <table class="table" id="myTable">
                             <thead>
                                 <tr>
+                                    <th>username</th>
                                     <th>Firstname</th>
                                     <th>Lastname</th>
                                     <th>Email</th>
@@ -21,21 +22,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for (const user of users) { %}
                                 <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
-                                    <td>Evet</td>
+                                    <td>{%= user.username %}</td>
+                                    <td>{%= user.firstname %}</td>
+                                    <td>{%= user.lastname %}</td>
+                                    <td>{%= user.email %}</td>
+                                    <td>{%= user.isActive %}</td>
                                     <td>delete</td>
                                 </tr>
-                                <tr>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                    <td>mary@example.com</td>
-                                    <td>Hayır</td>
-                                    <td>delete</td>
-                                </tr>
-                                <!-- Diğer satırları buraya ekleyebilirsiniz -->
+                                {% } %}
                             </tbody>
                         </table>
                     </div>
@@ -48,9 +44,10 @@
 <!-- main end -->
 
 {%- include('../partials/incFooter') %}
+
+
 <script>
     $(document).ready(function () {
-        // DataTables initialization
-        $('#sortableTable').DataTable();
+        $('#myTable').DataTable();
     });
 </script>
