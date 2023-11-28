@@ -1,4 +1,5 @@
 "use strict";
+const { paginate } = require("../../helpers/paginate");
 const { BlogCategory, BlogPost } = require("../../models/Blog.model");
 // const data = await Pizza.updateOne({ _id: req.params.id }, { $push: { toppings: toppings } })
 module.exports.blogPostViewController = {
@@ -11,13 +12,7 @@ module.exports.blogPostViewController = {
 
     const details = await req.getModelListDetails(BlogPost);
 
-    const paginations = {
-      beforePrevious: details.pages.beforePrevious,
-      previous: details.pages.previous,
-      current: details.pages.current,
-      next: details.pages.next,
-      afterNext: details.pages.afterNext,
-    };
+    const paginations = paginate(details);
     if (!req.originalUrl.includes("?")) req.originalUrl += "?";
 
     const regex = /\b(filter|sort|search)\b/i;

@@ -4,7 +4,5 @@ const {
   userViewController: UserView,
 } = require("../../controllers/view/user.view.controller");
 
-router.all("/login", UserView.login);
-router.all("/logout", UserView.logout);
-router.all("/register", UserView.register);
+router.all("/list", UserView.list);
 module.exports = router;

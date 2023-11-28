@@ -54,12 +54,16 @@ h6 {
 }
 
 .small-image {
-  float: left;
-  width: 240px;
-  height: auto;
-  margin-right: 10px;
-  margin-top: 15px;
-  max-height: 240px;
+  width: 100%; /* Resmin genişliğini div'in genişliğine göre ayarlar */
+  height: 100%; /* Resmin yüksekliğini div'in yüksekliğine göre ayarlar */
+  object-fit: cover;
+  display: inline-block;
+}
+
+.small-div {
+  width: 250px; /* Div'in genişliğini belirleyin */
+  height: 200px; /* Div'in yüksekliğini belirleyin */
+  overflow: hidden;
 }
 
 .iconcolor {

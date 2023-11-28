@@ -31,7 +31,7 @@ module.exports = function (app, express) {
   app.use("/api/v1/", require("./src/routes/api/auth.api.router"));
   //VIEW ROUTES
   app.use("/posts", require("./src/routes/view/blogPost.view.route"));
-  app.use("/auth", require("./src/routes/view/user.view.route"));
-
+  app.use("/auth", require("./src/routes/view/auth.view.route"));
+  app.use("/users", require("./src/routes/view/user.view.route"));
   app.use(require("./src/middlewares/errorHandler"));
 };

@@ -1,0 +1,56 @@
+{%- include('../partials/incHeader') %}
+
+</div>
+<!-- main start -->
+<main class="container">
+    <div class="row g-5">
+        <div class="col-md-12 p-3">
+            <a href="/"><i class="bi bi-arrow-left-circle fs-3 me-2"></i></a>
+            <div class="mt-3">
+                <h3 class="text-center">Users</h3>
+                <form action="" method="POST">
+                    <div class="table-responsive">
+                        <table class="table" id="sortableTable">
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                    <th>Aktive</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>Evet</td>
+                                    <td>delete</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                    <td>Hayır</td>
+                                    <td>delete</td>
+                                </tr>
+                                <!-- Diğer satırları buraya ekleyebilirsiniz -->
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- main end -->
+
+{%- include('../partials/incFooter') %}
+<script>
+    $(document).ready(function () {
+        // DataTables initialization
+        $('#sortableTable').DataTable();
+    });
+</script>

@@ -9,20 +9,26 @@
             {%= post.createdAt.toUTCString() %}
         </p>
     </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="small-div">
+                <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
+            </div>
+        </div>
+        <div class="col-8">
+            <p class="text-justify mx-3">
+                {%= post.content.substring(0, 500) %}
+                <a href="{%= url %}"><span id="dots-{%= post._id %}">...readmore</span></a>
+                <!-- <span id="more-{%= post._id %}" style="display: none;">
+                                                                        {%= post.content.substring(501) %}
+                                                                    </span> -->
+                <!-- <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
+                                                                        id="myBtn-{%= post._id %}">readmore</a> -->
+            </p>
 
-    <div>
-        <img class="small-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
-        <p class="text-justify">
-            {%= post.content.substring(0, 500) %}
-            <a href="{%= url %}"><span id="dots-{%= post._id %}">...readmore</span></a>
-            <!-- <span id="more-{%= post._id %}" style="display: none;">
-                                                    {%= post.content.substring(501) %}
-                                                </span> -->
-            <!-- <a href="javascript:void(0);" onclick="readMore('{%= post._id %}')"
-                                                    id="myBtn-{%= post._id %}">readmore</a> -->
-        </p>
+        </div>
     </div>
-    <div class="d-flex justify-content-between mt-4">
+    <div class="d-flex d-block mt-2">
         <div class="d-flex gap-4">
             <div class="d-inline-block position-relative">
                 <div onclick="like('{%= post._id %}')" style="cursor: pointer;">
