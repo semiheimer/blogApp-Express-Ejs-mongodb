@@ -1,11 +1,10 @@
 {%- include('../partials/incHeader') %}
-</div>
-<!-- main start -->
+
 <main class="container">
     <div class="row g-5">
         <div class="col-md-12 p-3">
             <a class="btn btn-sm btn-secondary" href="/posts">Go Back</a>
-            <h1>{%= post?.title %}</h1>
+            <h1 class="text-center">{%= post?.title %}</h1>
             <form action="" method="POST">
                 <table class="table table-striped">
                     {% if(path=="update") { %}
@@ -57,7 +56,7 @@
                 <p>
 
                 <div class="d-flex flex-row-reverse">
-                    <button class="btn btn-primary" type="submit">SUBMIT</button>
+                    <button class="btn btn-primary" type="submit">Update</button>
                 </div>
                 </p>
             </form>

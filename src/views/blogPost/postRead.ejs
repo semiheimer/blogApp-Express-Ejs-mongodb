@@ -1,10 +1,8 @@
 {%- include('../partials/incHeader') %}
-</div>
-<!-- main start -->
+
 <main class="container">
     <div class="row g-5">
         <div class="col-md-12 p-3">
-            <!-- BlogPost Read -->
             <article class="blog-post">
                 <a href="/posts?filter[blogCategoryId]={%= post.blogCategoryId._id %}">
                     <span>back to {%= post.blogCategoryId.name
@@ -24,9 +22,8 @@
                     <img class="big-image" src="{%= post.imageUrl %}" alt="{%= post.title%}">
                     {%= post.content %}
                 </p>
-                {% if (user) { %}
+                {% if ((user && post?.userId === user?.id) || user?.isAdmin) { %}
                 <div class="admin-area text-end">
-
                     <a class="btn btn-sm btn-primary" href="/posts/{%= post._id %}/update">Update</a>
                     <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
                         onclick="return confirm('Are you sure?')">Delete</a>
@@ -34,7 +31,6 @@
                 {% } %}
         </div>
         </article>
-    </div>
     </div>
 </main>
 <!-- main end -->

@@ -1,16 +1,16 @@
 {%- include('../partials/incHeader') %}
 
-<!-- Blog Categories -->
-<div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
-        {% for (const category of categories) { %}
-        <a class="nav-item nav-link {%= selectedCategory==category._id? 'link-underline':'' %}" id='{%= category._id %}'
-            href="/posts?filter[blogCategoryId]={%= category._id %}&page=1"
-            onclick="selectCategory(this, '{%= selectedCategory %}')"><b>{%=
-                category.name
-                %}</b></a>
-        {% } %}
-    </nav>
+<div class="container">
+    <div class="py-1 mb-3">
+        <nav class="nav justify-content-between">
+            {% for (const category of categories) { %}
+            <a class="nav-item nav-link {%= selectedCategory==category._id? 'link-underline':'' %} link-offset-3 link-offset-0-hover mb-2"
+                id='{%= category._id %}' href="/posts?filter[blogCategoryId]={%= category._id %}&page=1">
+                <b>{%= category.name %}</b>
+            </a>
+            {% } %}
+        </nav>
+    </div>
 </div>
 </div>
 <!-- main start -->
@@ -18,44 +18,35 @@
     <div class="row g-5">
         <div class="col-md-8 col-12">
             {% const url=user?"/posts/create":"/auth/login" %}
-            <div class="admin-area text-end">
+            <div class="d-flex justify-content-between align-items-center  p-4">
+                <h3 class="fst-italic">
+                    Welcome!
+                </h3>
                 <a class="btn btn-primary" href="{%= url %}">New Post</a>
             </div>
-            <h3 class="pb-4 fst-italic border-bottom">
-                Welcome!
-            </h3>
-            <!-- BlogPosts -->
             {%- include('post') %}
-            <!-- Pagination -->
             {%- include('../partials/incPagination') %}
-            <!-- totalRecords -->
             <div class=" text-center mb-4">
                 <span class=" p-2 text-black">Showing {%= details.skip+1 %} to {%= details?.pages?.next ?
                     details.skip+ details.limit: details?.totalRecords %} of {%=
                     details.totalRecords %} Entries </span>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="d-flex position-sticky" style="top: 2rem;">
-                <div>
-                    <h3 class="fst-italic">Recent Posts</h3>
-                    <ul class="list-unstyled">
-                        <!-- Recent posts -->
-                        {% for (const recentPost of recentPosts) { %}
-                        <li>
-                            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                                href="/posts/:id">
-                                <div class="col-lg-8">
-                                    <h5>{%= recentPost.title %}</h5>
-                                    <p class="my-2 text-justify">{%= recentPost.content.substring(0, 100)
-                                        %} ...</p>
-                                    <small class="text-body-secondary">{%= recentPost.createdAt.toUTCString() %}</small>
-                                </div>
-                            </a>
-                        </li>
-                        {% } %}
-                    </ul>
-                </div>
+        <div class="col-md-4 d-none d-md-block position-sticky">
+            <div class="sticky-top">
+                <h3 class="fst-italic text-center">Recent Posts</h3>
+                <ul class="list-unstyled">
+                    {% for (const recentPost of recentPosts) { %}
+                    <li class="py-2 border-bottom d-flex flex-column">
+                        <a class="link-body-emphasis text-decoration-none" href="/posts/{%= recentPost?.id %}">
+                            <h5>{%= recentPost.title %}</h5>
+                        </a>
+                        <p class="my-2 text-justify">{%= recentPost.content.substring(0, 132)
+                            %} ...</p>
+                        <small class="text-body-secondary">{%= recentPost.createdAt.toUTCString() %}</small>
+                    </li>
+                    {% } %}
+                </ul>
             </div>
         </div>
     </div>
@@ -81,25 +72,3 @@
         }
     }
 </script> -->
-
-<script>
-    async function like(postId) {
-        try {
-            const response = await fetch(`/api/v1/posts/${postId}/like`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error(`API request failed, HTTP error code: ${response.status}`);
-            }
-            const responseData = await response.json();
-            document.getElementById("likeButton_" + postId).innerText = responseData.result?.likedUsers.length || 0;
-        } catch (error) {
-            alert('Updating likes failed');
-            console.error('Updating likes failed', error);
-        }
-    }
-
-</script>
