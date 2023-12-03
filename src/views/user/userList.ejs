@@ -1,7 +1,5 @@
 {%- include('../partials/incHeader') %}
 
-</div>
-<!-- main start -->
 <main class="container">
     <div class="row g-5">
         <div class="col-md-12 p-3">
@@ -17,7 +15,7 @@
                                     <th>Firstname</th>
                                     <th>Lastname</th>
                                     <th>Email</th>
-                                    <th>Aktive</th>
+                                    <th>State</th>
                                     <th>Operations</th>
                                 </tr>
                             </thead>
@@ -28,8 +26,18 @@
                                     <td>{%= user.firstname %}</td>
                                     <td>{%= user.lastname %}</td>
                                     <td>{%= user.email %}</td>
-                                    <td>{%= user.isActive %}</td>
-                                    <td>delete</td>
+                                    <td>{%= user.isActive? "Active":"Not Active" %}</td>
+                                    {% if(user.isActive) { %}
+                                    <td><button class="delete-btn btn btn-outline-primary" data-user-id="{%= user.id %}"
+                                            onclick="deleteUser('{%= user._id %}','delete')">
+                                            <i class="bi bi-trash"></i>
+                                        </button></button></td>
+                                    {% } else { %}
+                                    <td><button class="delete-btn btn btn-outline-primary" data-user-id="{%= user.id %}"
+                                            onclick="deleteUser('{%= user._id %}','update')">
+                                            <i class="bi bi-pencil"></i>
+                                        </button></button></td>
+                                    {% } %}
                                 </tr>
                                 {% } %}
                             </tbody>
@@ -49,5 +57,47 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();
+
     });
+
 </script>
+
+<script>
+    async function deleteUser(userId, state) {
+        try {
+            const apiUrl = '/api/v1/users/' + userId;
+            const body = state === "update" ? JSON.stringify({ isActive: true }) : {};
+            const method = state === "delete" ? 'DELETE' : "PUT";
+            const response = await fetch(apiUrl, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body
+            })
+            if (!response.ok) {
+                throw new Error(`API request failed, HTTP error code: ${response.status}`);
+            }
+            const responseData = await response.json();
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    }
+</script>
+
+try {
+const response = await fetch(`/api/v1/posts/${postId}/like`, {
+method: 'PUT',
+headers: {
+'Content-Type': 'application/json',
+},
+});
+if (!response.ok) {
+throw new Error(`API request failed, HTTP error code: ${response.status}`);
+}
+const responseData = await response.json();
+document.getElementById("likeButton_" + postId).innerText = responseData.result?.likedUsers.length || 0;
+} catch (error) {
+alert('You must log in to like');
+console.error('Updating likes failed', error);
+}

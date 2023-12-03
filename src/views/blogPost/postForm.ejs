@@ -42,8 +42,8 @@
                             <td>Published</td>
                             <td>
                                 <select name="published" class="form-select">
-                                    <option value="0" {%=(post?.published ? '' : 'selected' ) %}>No</option>
-                                    <option value="1" {%=(post?.published ? 'selected' : '' ) %}>Yes</option>
+                                    <option value="0" {%=(post?.isPublished ? '' : 'selected' ) %}>No</option>
+                                    <option value="1" {%=(post?.isPublished ? 'selected' : '' ) %}>Yes</option>
                                 </select>
                             </td>
                         </tr>

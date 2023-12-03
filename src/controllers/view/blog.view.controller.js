@@ -4,7 +4,9 @@ const { BlogCategory, BlogPost } = require("../../models/Blog.model");
 // const data = await Pizza.updateOne({ _id: req.params.id }, { $push: { toppings: toppings } })
 module.exports.blogPostViewController = {
   list: async (req, res) => {
-    const data = await req.getModelList(BlogPost, "blogCategoryId");
+    const data = await req.getModelList(BlogPost, "blogCategoryId", {
+      isPublished: true,
+    });
     const categories = await BlogCategory.find();
     const recentPosts = await BlogPost.find()
       .sort({ createdAt: "desc" })
@@ -23,7 +25,6 @@ module.exports.blogPostViewController = {
       req.originalUrl += "&";
     }
     req.originalUrl = req.originalUrl.split("page")[0];
-
     res.render("blogPost/postList", {
       user: req.session?.user,
       paginations,
@@ -87,7 +88,10 @@ module.exports.blogPostViewController = {
   },
 
   delete: async (req, res) => {
-    const data = await BlogPost.deleteOne({ _id: req.params.postId });
+    const data = await BlogPost.updateOne(
+      { _id: req.params.postId },
+      { isPublished: false },
+    );
     res.redirect("/posts");
   },
 };

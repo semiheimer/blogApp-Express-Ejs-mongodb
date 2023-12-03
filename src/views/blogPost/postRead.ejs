@@ -14,8 +14,8 @@
                 </h2>
                 <div class="d-flex justify-content-between mb-3">
                     <span class="blog-post-meta">{%= post.createdAt.toUTCString() %}</span>
-                    <span class="badge text-bg-{%= post.published? 'success':'warning' %} align-right">{%=
-                        post.published?"Published":"Unpublished"
+                    <span class="badge text-bg-{%= post.isPublished? 'success':'warning' %} align-right">{%=
+                        post.isPublished?"Published":"Unpublished"
                         %}</span>
                 </div>
                 <p class="text-justify" style="text-indent: 30px;">

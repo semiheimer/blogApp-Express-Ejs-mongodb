@@ -47,17 +47,16 @@ const blogPostSchema = new mongoose.Schema(
       default: true,
     },
     imageUrl: String,
-    likedUsers: [
+    visitedUsers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "User",
       },
     ],
-    visitedUsers: [
+    likedUsers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "User",
-        unique: true,
       },
     ],
   },

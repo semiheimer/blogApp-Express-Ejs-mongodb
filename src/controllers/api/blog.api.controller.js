@@ -112,6 +112,7 @@ module.exports.BlogPost = {
       newData: await BlogPost.findOne({ _id: req.params.postId }),
     });
   },
+
   likePost: async (req, res) => {
     const data = await BlogPost.findOne({
       _id: req.params.postId,
@@ -142,7 +143,10 @@ module.exports.BlogPost = {
     });
   },
   delete: async (req, res) => {
-    const data = await BlogPost.deleteOne({ _id: req.params.postId });
+    const data = await BlogPost.updateOne(
+      { _id: req.params.postId },
+      { isPublished },
+    );
 
     res.sendStatus(data.deletedCount >= 1 ? 204 : 404);
   },

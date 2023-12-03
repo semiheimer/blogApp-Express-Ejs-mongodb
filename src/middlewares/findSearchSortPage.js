@@ -18,8 +18,13 @@ module.exports = (req, res, next) => {
   let skip = Number(req.query?.skip);
   skip = skip > 0 ? skip : page * limit;
 
-  req.getModelList = async (Model, populate = null) => {
-    return await Model.find(search)
+  req.getModelList = async (
+    Model,
+    populate = null,
+    { isPublished = false } = {},
+  ) => {
+    const newFilter = isPublished ? { ...search, isPublished: true } : search;
+    return await Model.find(newFilter)
       .sort(sort)
       .skip(skip)
       .limit(limit)

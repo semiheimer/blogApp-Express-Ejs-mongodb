@@ -41,6 +41,7 @@ module.exports.User = {
   update: async (req, res) => {
     // const data = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true }) // return new-data
     // const data = await User.updateOne({ _id: req.params.userId }, req.body)
+    console.log(req.body);
     const data = await User.updateOne({ _id: req.params.userId }, req.body, {
       runValidators: true,
     });
@@ -54,7 +55,10 @@ module.exports.User = {
   },
 
   delete: async (req, res) => {
-    const data = await User.deleteOne({ _id: req.params.userId });
+    const data = await User.updateOne(
+      { _id: req.params.userId },
+      { isActive: false },
+    );
 
     res.sendStatus(data.deletedCount >= 1 ? 204 : 404);
   },

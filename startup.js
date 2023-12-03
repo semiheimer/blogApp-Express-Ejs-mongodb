@@ -18,7 +18,7 @@ module.exports = function (app, express) {
   app.use("/assets", express.static("./public/assets"));
 
   app.all("/", (req, res) => {
-    res.redirect("/posts");
+    res.redirect("/posts?page=1");
   });
   app.use(require("./src/middlewares/findSearchSortPage"));
 

@@ -53,19 +53,6 @@ h6 {
   margin-top: 10px;
 }
 
-.small-image {
-  width: 100%; /* Resmin genişliğini div'in genişliğine göre ayarlar */
-  height: 100%; /* Resmin yüksekliğini div'in yüksekliğine göre ayarlar */
-  object-fit: cover;
-  float: right;
-}
-
-.small-div {
-  width: 250px; /* Div'in genişliğini belirleyin */
-  height: 200px; /* Div'in yüksekliğini belirleyin */
-  overflow: hidden;
-}
-
 .iconcolor {
   fill: white !important;
 }

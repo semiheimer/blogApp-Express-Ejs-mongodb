@@ -1,5 +1,4 @@
 {% for (const post of posts) { %}
-{% console.log(post.isPublished)%}
 <article class="my-4 ">
     {% const url=user ? "/posts/"+post._id : "/auth/login" %}
     <div class="d-flex flex-column mb-2">
@@ -10,11 +9,11 @@
             {%= post.createdAt.toUTCString() %}
         </p>
     </div>
-    <div class="mb-4">
+    <div class="d-flex flex-block">
         <img src="{%= post.imageUrl %}" alt="{%= post.title %}"
-            style="width:200px; height:200px;  float:left; margin: 0px 15px 15px 0px;">
+            style="width:180px; height:180px;  float:left; margin: 0px 15px 15px 0px;">
         <p class="text-justify">
-            {%= post.content.substring(0, 500) %}
+            {%= post.content.substring(0, 600) %}
             <a href="{%= url %}"><span id="dots-{%= post._id %}">...readmore</span></a>
         </p>
     </div>
@@ -38,7 +37,7 @@
         </div>
 
         {% if (user) { %}
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
             <a class="btn btn-sm btn-primary me-2" href="/posts/{%= post._id %}/update">Update</a>
             <a class="btn btn-sm btn-danger" href="/posts/{%= post._id %}/delete"
                 onclick="return confirm('Are you sure?')">Delete</a>

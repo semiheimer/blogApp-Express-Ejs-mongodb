@@ -9,7 +9,7 @@ const User = require("../../models/User.model");
 
 module.exports.userViewController = {
   list: async (req, res) => {
-    const data = await req.getModelList(User);
+    const data = await User.find({});
     const details = await req.getModelListDetails(User);
 
     const paginations = paginate(details);
