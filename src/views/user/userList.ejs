@@ -1,51 +1,46 @@
 {%- include('../partials/incHeader') %}
 
 <main class="container">
-    <div class="row g-5">
-        <div class="col-md-12 p-3">
-            <a href="/"><i class="bi bi-arrow-left-circle fs-3 me-2"></i></a>
-            <div class="mt-3">
-                <h3 class="text-center">Users</h3>
-                <form action="" method="POST">
-                    <div class="table-responsive">
-                        <table class="table" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>username</th>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>State</th>
-                                    <th>Operations</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for (const user of users) { %}
-                                <tr>
-                                    <td>{%= user.username %}</td>
-                                    <td>{%= user.firstname %}</td>
-                                    <td>{%= user.lastname %}</td>
-                                    <td>{%= user.email %}</td>
-                                    <td>{%= user.isActive? "Active":"Not Active" %}</td>
-                                    {% if(user.isActive) { %}
-                                    <td><button class="delete-btn btn btn-outline-primary" data-user-id="{%= user.id %}"
-                                            onclick="deleteUser('{%= user._id %}','delete')">
-                                            <i class="bi bi-trash"></i>
-                                        </button></button></td>
-                                    {% } else { %}
-                                    <td><button class="delete-btn btn btn-outline-primary" data-user-id="{%= user.id %}"
-                                            onclick="deleteUser('{%= user._id %}','update')">
-                                            <i class="bi bi-pencil"></i>
-                                        </button></button></td>
-                                    {% } %}
-                                </tr>
-                                {% } %}
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <a href="/"><i class="bi bi-arrow-left-circle fs-3 me-2"></i></a>
+    <h3 class="text-center">Users</h3>
+    <div class="table-responsive">
+        <form action="" method="POST">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Active</th>
+                        <th>Delete/Undo</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for (const user of users) { %}
+                    <tr>
+                        <td>{%= user.id %}</td>
+                        <td>{%= user.username %}</td>
+                        <td>{%= user.firstname %} {%= user.lastname %}</td>
+                        <td>{%= user.email %}</td>
+                        <td data-state-id="{%= user.id %}">{%= user.isActive? "Yes":"No" %}</td>
+                        <td>
+                            <button class="delete-btn btn btn-outline-primary" data-user-id="{%= user.id %}"
+                                data-action="{%= user?.isActive ? 'delete':'update'  %}">
+                                <i class="{%= user.isActive ? 'bi bi-trash' : 'bi bi-arrow-counterclockwise' %}"></i>
+                            </button>
+                        </td>
+                        <td> <a href="/users/{%= user.id %}/update"><i class="bi bi-pencil"></i></a></td>
+                    </tr>
+                    {% } %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="overlay" style="display: none;"></div>
+    <div class="loader" style="display: none;">
+
     </div>
 </main>
 
@@ -57,47 +52,78 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();
+        // $('#myTable tbody').on('click', 'td[contenteditable="true"]', function () {
+        //     $(this).css('border', '1px solid');
+        // });
 
+        // $('#myTable tbody').on('blur', 'td[contenteditable="true"]', function () {
+
+        //     const userId = $(this).closest('tr').find('.delete-btn').data('user-id');
+        //     console.log($(this))
+        //     const columnName = $(this).index();
+        //     const newValue = $(this).text();
+
+        //     console.log('User ID:', userId);
+        //     console.log('Column Index:', columnName);
+        //     console.log('New Value:', newValue);
+
+        //     // Reset the cell style after editing
+        //     $(this).css('border', '');
+        // });
     });
-
 </script>
 
 <script>
-    async function deleteUser(userId, state) {
+    document.addEventListener('click', async function (event) {
+        const target = event.target;
+        const button = target.closest('.delete-btn');
+        if (!button) return;
+
+        const iconElement = button?.querySelector('i');
+        const loadingElement = document?.querySelector('.loader');
+        const overlayElement = document?.querySelector('.overlay');
+
+        const userId = button.getAttribute('data-user-id');
+        const action = button.getAttribute('data-action');
+
+        const isActive = action === "update" ? true : action === "delete" ? false : null;
+        const targetElement = document.querySelector(`td[data-state-id="${userId}"]`);
+
+        button.disabled = true;
+        loadingElement.style.display = 'inline-block';
+        overlayElement.style.display = 'block';
+
+        const body = JSON.stringify({ isActive });
         try {
-            const apiUrl = '/api/v1/users/' + userId;
-            const body = state === "update" ? JSON.stringify({ isActive: true }) : {};
-            const method = state === "delete" ? 'DELETE' : "PUT";
+            const apiUrl = `/api/v1/users/${userId}`;
             const response = await fetch(apiUrl, {
-                method,
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body
-            })
+            });
             if (!response.ok) {
-                throw new Error(`API request failed, HTTP error code: ${response.status}`);
+                alert(`API request failed, HTTP error code: ${response.status}`);
+                // throw new Error(`API request failed, HTTP error code: ${response.status}`);
             }
             const responseData = await response.json();
-        } catch (error) {
-            console.error('Error deleting user:', error);
-        }
-    }
-</script>
 
-try {
-const response = await fetch(`/api/v1/posts/${postId}/like`, {
-method: 'PUT',
-headers: {
-'Content-Type': 'application/json',
-},
-});
-if (!response.ok) {
-throw new Error(`API request failed, HTTP error code: ${response.status}`);
-}
-const responseData = await response.json();
-document.getElementById("likeButton_" + postId).innerText = responseData.result?.likedUsers.length || 0;
-} catch (error) {
-alert('You must log in to like');
-console.error('Updating likes failed', error);
-}
+            if (responseData?.isModified) {
+                const isActive = responseData?.newData?.isActive;
+                iconElement.classList.toggle("bi-trash", isActive === true);
+                iconElement.classList.toggle("bi-arrow-counterclockwise", isActive === false);
+                targetElement.textContent = isActive ? "Yes" : "No"
+                const newDataAction = isActive ? 'delete' : 'update'
+                button.setAttribute('data-action', newDataAction);
+            }
+
+        } catch (error) {
+            console.error('Error updating user:', error);
+        } finally {
+            button.disabled = false;
+            loadingElement.style.display = 'none';
+            overlayElement.style.display = 'none'
+        }
+    });
+</script>

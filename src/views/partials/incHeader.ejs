@@ -52,7 +52,7 @@
                     <div class="d-none d-md-block">
                         {% if (user) { %}
                         <span class="px-3 te"><b>{%= user?.email %}</b></span>
-                        {% if(user?.isAdmin) %}<a class="btn btn-sm btn-secondary" href="/users/list">Users</a>
+                        {% if(user?.isAdmin) %}<a class="btn btn-sm btn-secondary" href="/users">Users</a>
                         <a class="btn btn-sm btn-secondary" href="/auth/logout">Logout</a>
 
                         {% } else { %}

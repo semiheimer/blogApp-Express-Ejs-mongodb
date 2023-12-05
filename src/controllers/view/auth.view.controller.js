@@ -30,6 +30,7 @@ module.exports.authViewController = {
           lastname: user.lastname,
           isAdmin: user.isAdmin,
         };
+        req.session.token = user.generateAuthToken("withRefresh");
 
         if (req.body?.rememberMe) {
           req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3; // 3 Days

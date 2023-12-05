@@ -11,7 +11,7 @@ module.exports.blogPostViewController = {
     const recentPosts = await BlogPost.find()
       .sort({ createdAt: "desc" })
       .limit(4);
-
+    console.log(req.session);
     const details = await req.getModelListDetails(BlogPost);
 
     const paginations = paginate(details);
@@ -56,6 +56,7 @@ module.exports.blogPostViewController = {
     const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
       "blogCategoryId",
     );
+
     const data1 = await BlogPost.updateOne(
       { _id: req.params.postId },
       { $push: { visitedUsers: req.session?.user.id } },
@@ -78,7 +79,7 @@ module.exports.blogPostViewController = {
     } else {
       res.render("blogPost/postForm", {
         user: req.session?.user,
-        path: "update",
+        operation: "update", //blog Id area not shown (create-update)
         categories: await BlogCategory.find(),
         post: await BlogPost.findOne({ _id: req.params.postId }).populate(
           "blogCategoryId",

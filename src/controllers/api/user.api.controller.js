@@ -41,7 +41,6 @@ module.exports.User = {
   update: async (req, res) => {
     // const data = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true }) // return new-data
     // const data = await User.updateOne({ _id: req.params.userId }, req.body)
-    console.log(req.body);
     const data = await User.updateOne({ _id: req.params.userId }, req.body, {
       runValidators: true,
     });
@@ -51,6 +50,7 @@ module.exports.User = {
       body: req.body,
       result: data, // update infos
       newData: await User.findOne({ _id: req.params.userId }),
+      isModified: data?.modifiedCount === 1 ? true : false,
     });
   },
 

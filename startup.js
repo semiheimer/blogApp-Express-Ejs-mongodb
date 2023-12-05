@@ -1,10 +1,18 @@
 const session = require("cookie-session");
 const ejs = require("ejs");
 const authentication = require("./src/middlewares/authentication");
+const viewAuthentication = require("./src/middlewares/viewAuthentication");
 
 module.exports = function (app, express) {
   app.use(
-    session({ secret: process.env.SECRET_KEY || "secret_keys_for_cookies" }),
+    session({
+      secret: process.env.SECRET_KEY || "secret_keys_for_cookies",
+      cookie: {
+        secure: true,
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      },
+    }),
   );
 
   ejs.openDelimiter = "{";
@@ -32,6 +40,10 @@ module.exports = function (app, express) {
   //VIEW ROUTES
   app.use("/posts", require("./src/routes/view/blogPost.view.route"));
   app.use("/auth", require("./src/routes/view/auth.view.route"));
-  app.use("/users", require("./src/routes/view/user.view.route"));
+  app.use(
+    "/users",
+    viewAuthentication,
+    require("./src/routes/view/user.view.route"),
+  );
   app.use(require("./src/middlewares/errorHandler"));
 };

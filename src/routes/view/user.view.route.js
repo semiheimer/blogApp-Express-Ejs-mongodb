@@ -4,5 +4,6 @@ const {
   userViewController: UserView,
 } = require("../../controllers/view/user.view.controller");
 
-router.all("/list", UserView.list);
+router.all("/", UserView.list);
+router.all("/:userId/update", UserView.update);
 module.exports = router;
