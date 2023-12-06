@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+userSchema.virtual("fullname").get(function () {
+  return `${this.firstname} ${this.lastname}`;
+});
+
 userSchema.plugin(uniqueValidator, {
   message: "This {PATH} is exist",
 });

@@ -1,6 +1,4 @@
 {%- include('../partials/incHeader') %}
-
-</div>
 <!-- main start -->
 <main class="container">
     <div class="row g-5">
@@ -16,7 +14,7 @@
                                 {% const errorMessage1= typeof errorMessage !=='undefined'? errorMessage : null %}
                                 <td>E-Mail</td>
                                 <td><input type="text" name="email" required class="form-control"
-                                        value="{%= userInput1?.email ? userInput1.email:'test@test.com' %}">
+                                        value="{%= userInput1?.email ? userInput1.email:'admin@test.com' %}">
                                 </td>
                             </tr>
                             <tr>

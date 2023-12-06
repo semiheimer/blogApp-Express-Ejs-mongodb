@@ -1,7 +1,8 @@
 const session = require("cookie-session");
 const ejs = require("ejs");
-const authentication = require("./src/middlewares/authentication");
+const apiAuthentication = require("./src/middlewares/apiAuthentication");
 const viewAuthentication = require("./src/middlewares/viewAuthentication");
+const permissions = require("./src/middlewares/permissions");
 
 module.exports = function (app, express) {
   app.use(
@@ -34,15 +35,20 @@ module.exports = function (app, express) {
     res.json({ msg: "test route" });
   });
   //API ROUTES
-  app.use("/api/v1/users", require("./src/routes/api/user.api.route"));
+  app.use(
+    "/api/v1/users",
+    apiAuthentication,
+    require("./src/routes/api/user.api.route"),
+  );
   app.use("/api/v1/posts", require("./src/routes/api/blogPost.api.route"));
-  app.use("/api/v1/", require("./src/routes/api/auth.api.router"));
+  app.use("/api/v1/auth", require("./src/routes/api/auth.api.router"));
   //VIEW ROUTES
   app.use("/posts", require("./src/routes/view/blogPost.view.route"));
   app.use("/auth", require("./src/routes/view/auth.view.route"));
   app.use(
     "/users",
     viewAuthentication,
+    permissions.isAdmin,
     require("./src/routes/view/user.view.route"),
   );
   app.use(require("./src/middlewares/errorHandler"));

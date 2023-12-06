@@ -51,8 +51,11 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-none d-md-block">
                         {% if (user) { %}
-                        <span class="px-3 te"><b>{%= user?.email %}</b></span>
-                        {% if(user?.isAdmin) %}<a class="btn btn-sm btn-secondary" href="/users">Users</a>
+                        <span class="px-3 te"><b>{%= user?.fullname %}</b></span>
+                        {%= console.log(user) %}
+                        {% if(user?.isAdmin) { %}
+                        <a class="btn btn-sm btn-secondary" href="/users">Users</a>
+                        {% } %}
                         <a class="btn btn-sm btn-secondary" href="/auth/logout">Logout</a>
 
                         {% } else { %}
@@ -78,7 +81,7 @@
                         </ul>
                     </div>
                     <div class="dropdown bd-mode-toggle d-inline-block">
-                        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme"
+                        <button class="btn btn-bd-primary dropdown-toggle d-flex align-items-center mx-2" id="bd-theme"
                             type="button" aria-expanded="false" data-bs-toggle="dropdown"
                             aria-label="Toggle theme (auto)">
                             <svg class="bi my-1 theme-icon-active" width="1em" height="1em">

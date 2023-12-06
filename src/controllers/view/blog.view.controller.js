@@ -11,7 +11,7 @@ module.exports.blogPostViewController = {
     const recentPosts = await BlogPost.find()
       .sort({ createdAt: "desc" })
       .limit(4);
-    console.log(req.session);
+
     const details = await req.getModelListDetails(BlogPost);
 
     const paginations = paginate(details);
@@ -48,6 +48,7 @@ module.exports.blogPostViewController = {
         post: null,
         path: "create",
         user: req.session?.user,
+        operation: "create",
       });
     }
   },

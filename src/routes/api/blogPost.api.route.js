@@ -1,9 +1,13 @@
 "use strict";
 const router = require("express").Router();
 const { BlogPost } = require("../../controllers/api/blog.api.controller");
+const apiAuthentication = require("../../middlewares/apiAuthentication");
 
-router.route("/").get(BlogPost.list).post(BlogPost.create);
+router.route("/").get(BlogPost.list);
+//authentication middleware
+router.use(apiAuthentication);
 
+router.route("/").post(BlogPost.create);
 router
   .route("/:postId")
   .get(BlogPost.read)

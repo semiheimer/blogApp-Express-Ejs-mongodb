@@ -5,9 +5,9 @@ const { verifyAccessJWT } = require("../helpers/tokenHelpers");
 const User = require("../models/User.model");
 
 module.exports = async (req, res, next) => {
-  const auth = req.headers?.authorization || null;
-  const accessToken = auth ? auth.split(" ")[1] : null;
-  if (!accessToken) throw new UnauthenticatedError("Authentication invalid");
+  const { refresh, access } = req?.session.token || {};
+
+  if (!access) throw new UnauthenticatedError("Authentication invalid");
   try {
     const decoded = verifyAccessJWT(accessToken);
     const user = await User.findOne({ _id: decoded._id }, { isActive: 1 });

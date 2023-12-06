@@ -17,7 +17,7 @@ module.exports.authViewController = {
           );
 
         const user = await User.findOne({ ...req.body });
-
+        console.log(user.fullname);
         if (!user)
           throw new UnauthenticatedError("Wrong username/email or password");
         if (!user?.isActive)
@@ -29,6 +29,7 @@ module.exports.authViewController = {
           firstname: user.firstname,
           lastname: user.lastname,
           isAdmin: user.isAdmin,
+          fullname: user.fullname,
         };
         req.session.token = user.generateAuthToken("withRefresh");
 
@@ -66,10 +67,12 @@ module.exports.authViewController = {
         const data = await User.create(req.body);
 
         req.session.user = {
-          id: data._id,
-          email: data.email,
-          firstname: data.firstname,
-          lastname: data.lastname,
+          id: user._id,
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          isAdmin: user.isAdmin,
+          fullname: user.fullname,
         };
 
         res.redirect("/");
@@ -77,12 +80,14 @@ module.exports.authViewController = {
         res.render("auth/registerForm", {
           user: req.session?.user,
           errorMessage: error.message,
-          userInput: req.body || {},
+          userInput: req.body || null, // if user fill the form and error occured
+          operation: "create",
         });
       }
     } else {
       res.render("auth/registerForm", {
         user: req.session.user,
+        operation: "create",
       });
     }
   },
