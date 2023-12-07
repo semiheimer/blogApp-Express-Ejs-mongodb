@@ -33,7 +33,7 @@ module.exports = {
 
   isAdminOrOwnUser: (req, res, next) => {
     const isAuthorized =
-      req?.session.user.isAdmin || req?.user?._id === req.params?.id;
+      req?.session.user.isAdmin || req?.user?._id === req.params?.userId;
     if (!isAuthorized) return res.redirect("/");
   },
 };

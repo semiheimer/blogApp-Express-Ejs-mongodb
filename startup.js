@@ -51,5 +51,15 @@ module.exports = function (app, express) {
     permissions.isAdmin,
     require("./src/routes/view/user.view.route"),
   );
+
+  //Not found
+  app.use("/api/v1/*", (req, res) => {
+    res.status(404).json({ msg: "not found" });
+  });
+  app.use("*", (req, res) => {
+    const user = req?.session.user ? req?.session.user : null;
+    res.render("404", { user });
+  });
+
   app.use(require("./src/middlewares/errorHandler"));
 };

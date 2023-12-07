@@ -6,7 +6,7 @@
         <div class="col-md-12 p-3">
             <a href="/"><i class="bi bi-arrow-left-circle fs-3 me-2"></i></a>
             <div class="mt-3">
-                <h1 class="text-center">{%= operation ==="update"?"UPDATE":"REGISTER" %}</h1>
+                <h1 class="text-center">REGISTER</h1>
                 {% const userInput1= typeof userInput !=='undefined'? userInput : null %}
                 {% const errorMessage1= typeof errorMessage !=='undefined'? errorMessage : null %}
                 <form action="" method="POST">
@@ -48,8 +48,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex flex-row-reverse">
-                        <button class="btn btn-primary" type="submit">{%= operation ==="update"?"Update":"Register"
-                            %}</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </form>
             </div>

@@ -6,35 +6,35 @@
         <div class="col-md-12 p-3">
             <a href="/"><i class="bi bi-arrow-left-circle fs-3 me-2"></i></a>
             <div class="mt-3">
-                <h1 class="text-center">{%= operation ==="update"?"UPDATE":"REGISTER" %}</h1>
+                <h1 class="text-center">REGISTER</h1>
                 {% const userInput1= typeof userInput !=='undefined'? userInput : null %}
                 {% const errorMessage1= typeof errorMessage !=='undefined'? errorMessage : null %}
                 <form action="" method="POST">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <td>Username</td>
+                                <td>Username/Email</td>
                                 <td><input type="text" name="username" required class="form-control"
-                                        value="{%= userInput1?.username ? userInput1?.username:user?.username %}">
+                                        value="{%= userInput1?.username ? userInput1?.username:'' %}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Firstname</td>
                                 <td><input type="text" name="firstname" required class="form-control"
-                                        value="{%= userInput1?.firstname ? userInput1.firstname: user?.firstname %}">
+                                        value="{%= userInput1?.firstname ? userInput1.firstname: '' %}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Lastname</td>
                                 <td><input type="text" name="lastname" required class="form-control"
-                                        value="{%= userInput1?.lastname ? userInput1.lastname:user?.lastname %}">
+                                        value="{%= userInput1?.lastname ? userInput1.lastname:'' %}">
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>E-Mail</td>
                                 <td><input type="text" name="email" required class="form-control"
-                                        value="{%= userInput1?.email ? userInput1.email: user?.email %}">
+                                        value="{%= userInput1?.email ? userInput1.email: '' %}">
                                 </td>
                             </tr>
                             <tr>
@@ -48,8 +48,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex flex-row-reverse">
-                        <button class="btn btn-primary" type="submit">{%= operation ==="update"?"Update":"Register"
-                            %}</button>
+                        <button class="btn btn-primary" type="submit">Register</button>
                     </div>
                 </form>
             </div>

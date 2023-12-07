@@ -52,7 +52,6 @@
                     <div class="d-none d-md-block">
                         {% if (user) { %}
                         <span class="px-3 te"><b>{%= user?.fullname %}</b></span>
-                        {%= console.log(user) %}
                         {% if(user?.isAdmin) { %}
                         <a class="btn btn-sm btn-secondary" href="/users">Users</a>
                         {% } %}

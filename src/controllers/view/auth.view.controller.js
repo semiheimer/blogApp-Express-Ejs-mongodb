@@ -4,6 +4,7 @@ const {
   BadRequestError,
 } = require("../../errors/customErrors");
 const passwordValidator = require("../../helpers/passwordValidator");
+const { mapUserToSession } = require("../../helpers/userHelper");
 const User = require("../../models/User.model");
 
 module.exports.authViewController = {
@@ -17,20 +18,13 @@ module.exports.authViewController = {
           );
 
         const user = await User.findOne({ ...req.body });
-        console.log(user.fullname);
         if (!user)
           throw new UnauthenticatedError("Wrong username/email or password");
         if (!user?.isActive)
           throw new UnauthenticatedError("This account is not active");
 
-        req.session.user = {
-          id: user._id,
-          email: user.email,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          isAdmin: user.isAdmin,
-          fullname: user.fullname,
-        };
+        req.session.user = mapUserToSession(user);
+
         req.session.token = user.generateAuthToken("withRefresh");
 
         if (req.body?.rememberMe) {
@@ -39,9 +33,9 @@ module.exports.authViewController = {
         res.redirect("/");
       } catch (error) {
         res.render("auth/loginForm", {
-          user: req.session?.user,
+          user: req.session.user,
           errorMessage: error.message,
-          userInput: req.body || {},
+          userInput: req.body || null,
         });
       }
     } else {
@@ -54,7 +48,7 @@ module.exports.authViewController = {
   register: async (req, res) => {
     if (req.method == "POST") {
       try {
-        const { email, password } = req.body;
+        const { email, password, username } = req.body;
         if (!((email || username) && password))
           throw new UnauthenticatedError(
             "Please enter an username/email and password",
@@ -66,14 +60,7 @@ module.exports.authViewController = {
           );
         const data = await User.create(req.body);
 
-        req.session.user = {
-          id: user._id,
-          email: user.email,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          isAdmin: user.isAdmin,
-          fullname: user.fullname,
-        };
+        req.session.user = mapUserToSession(data);
 
         res.redirect("/");
       } catch (error) {
@@ -81,13 +68,11 @@ module.exports.authViewController = {
           user: req.session?.user,
           errorMessage: error.message,
           userInput: req.body || null, // if user fill the form and error occured
-          operation: "create",
         });
       }
     } else {
       res.render("auth/registerForm", {
         user: req.session.user,
-        operation: "create",
       });
     }
   },
