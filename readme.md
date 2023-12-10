@@ -36,7 +36,7 @@ $ npm install
 ```
 
 PORT=8000
-NODE_ENV="development"
+NODE_ENV="development" </br>
 MONGODB=mongodb://127.0.0.1:27017/blogAPP
 PAGE_SIZE=10
 SECRET_KEY=a7db7ashd7ashd7ahghsd7ashd7ashd7hasd7g2367f4e219er
