@@ -1,7 +1,7 @@
 {
   "name": "blogapp_ejs",
   "version": "1.0.0",
-  "description": "## MONGOOSE",
+  "description": "EJS MONGOOSE",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -30,3 +30,4 @@
     "winston": "^3.11.0"
   }
 }
+

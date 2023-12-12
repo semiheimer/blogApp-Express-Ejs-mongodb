@@ -4,10 +4,10 @@
     "version": "1.0.0",
     "title": "Flight Reservation API",
     "description": "Flight Reservation Management System",
-    "termsOfService": "http://www.clarusway.com",
+    "termsOfService": "http://www.semihkutlu.com",
     "contact": {
-      "name": "Clarusway",
-      "email": "qadir@clarusway.com"
+      "name": "semihkutlu",
+      "email": "skutlu@gmail.com"
     },
     "license": {
       "name": "ISC Licence"

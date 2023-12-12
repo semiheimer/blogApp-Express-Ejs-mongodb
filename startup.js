@@ -6,6 +6,15 @@ const permissions = require("./src/middlewares/permissions");
 
 module.exports = function (app, express) {
   app.use(
+    require("cors")({
+      origin: [
+        "http://localhost:3000",
+        "http://localhost:4173",
+        "http://localhost:5173",
+      ],
+    }),
+  );
+  app.use(
     session({
       secret: process.env.SECRET_KEY || "secret_keys_for_cookies",
       cookie: {
