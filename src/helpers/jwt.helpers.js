@@ -1,7 +1,22 @@
 const jwt = require("jsonwebtoken");
 const verifyAccessJWT = (token) => {
-  const decoded = jwt.verify(token, process.env.ACCESS_KEY);
-  return decoded;
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_KEY);
+    // return {
+    //   valid: true,
+    //   expired: false,
+    //   decoded,
+    // };
+    return decoded;
+  } catch (e) {
+    console.error(e);
+    // return {
+    //   valid: false,
+    //   expired: e.message === "jwt expired",
+    //   decoded: null,
+    // };
+    return error;
+  }
 };
 const verifyRefreshJWT = (token) => {
   const decoded = jwt.verify(token, process.env.REFRESH_KEY);

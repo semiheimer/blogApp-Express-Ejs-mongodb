@@ -1,6 +1,6 @@
 "use strict";
 const { UnauthenticatedError } = require("../../errors/customErrors");
-const { verifyRefreshJWT } = require("../../helpers/tokenHelpers");
+const { verifyRefreshJWT } = require("../../helpers/jwt.helpers");
 const registerCreateUser = require("../../middlewares/registerOrCreateUser");
 const UserModel = require("../../models/User.model");
 

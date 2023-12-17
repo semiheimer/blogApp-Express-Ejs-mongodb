@@ -2,10 +2,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
-const {
-  createRefreshJWT,
-  createAccessJWT,
-} = require("../helpers/tokenHelpers");
+const { createRefreshJWT, createAccessJWT } = require("../helpers/jwt.helpers");
 
 const userSchema = new mongoose.Schema(
   {

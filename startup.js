@@ -3,8 +3,11 @@ const ejs = require("ejs");
 const apiAuthentication = require("./src/middlewares/apiAuthentication");
 const viewAuthentication = require("./src/middlewares/viewAuthentication");
 const permissions = require("./src/middlewares/permissions");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
 
 module.exports = function (app, express) {
+  //CORS middleware
   app.use(
     require("cors")({
       origin: [
@@ -14,6 +17,7 @@ module.exports = function (app, express) {
       ],
     }),
   );
+  //SESSION middleware
   app.use(
     session({
       secret: process.env.SECRET_KEY || "secret_keys_for_cookies",
@@ -25,14 +29,16 @@ module.exports = function (app, express) {
     }),
   );
 
+  // EJS CONFIG
   ejs.openDelimiter = "{";
   ejs.closeDelimiter = "}";
-
   app.set("view engine", "ejs");
   app.set("views", "./src/views");
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+  app.use(helmet());
+  app.use(mongoSanitize());
   app.use("/assets", express.static("./public/assets"));
 
   app.all("/", (req, res) => {

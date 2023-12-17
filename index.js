@@ -4,8 +4,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8000;
+const morgan = require("morgan");
 
 require("./startup")(app, express);
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 try {
   //if (process.env.NODE_ENV === "development") require("./src/helpers/sync")();
