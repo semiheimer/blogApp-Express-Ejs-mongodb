@@ -1,7 +1,7 @@
 "use strict";
 
 const { UnauthenticatedError } = require("../errors/customErrors");
-const { verifyAccessJWT } = require("../helpers/tokenHelpers");
+const { verifyAccessJWT } = require("../helpers/jwt.helperss");
 const User = require("../models/User.model");
 
 module.exports = async (req, res, next) => {
