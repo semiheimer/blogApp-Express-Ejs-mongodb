@@ -1,4 +1,5 @@
 "use strict";
+const mongoose = require("mongoose");
 const { BlogCategory, BlogPost } = require("../../models/Blog.model");
 
 module.exports.BlogCategory = {
@@ -137,9 +138,17 @@ module.exports.BlogPost = {
       { likedUsers: 1, _id: 0 },
     );
 
+    const userId = new mongoose.Types.ObjectId(req.user._id);
+
+    //`likedUsers` içinde kullanıcının ID'si var mı kontrol edin
+    const isUserLiked = newData.likedUsers.some((likedUserId) =>
+      likedUserId.equals(userId),
+    );
+
     res.status(200).send({
       error: false,
       result: newData,
+      isUserLiked,
     });
   },
   delete: async (req, res) => {

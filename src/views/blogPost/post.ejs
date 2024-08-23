@@ -21,7 +21,7 @@
         <div class="d-flex gap-4">
             <div class="d-inline-block position-relative">
                 <div onclick="like('{%= post._id %}')" style="cursor: pointer;">
-                    <i class="bi bi-heart fs-3 me-2 text-danger"></i>
+                    <i id="likeIcon_{%= post._id %}" class="bi fs-3 me-2 text-danger {%= 'bi-heart-fill' %}"></i>
                     <span id="likeButton_{%= post._id %}"
                         class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:10px;">
                         {%= post?.likedUsers.length %}
@@ -56,15 +56,41 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
             });
             if (!response.ok) {
                 throw new Error(`API request failed, HTTP error code: ${response.status}`);
             }
             const responseData = await response.json();
-            document.getElementById("likeButton_" + postId).innerText = responseData.result?.likedUsers.length || 0;
+
+            // document.getElementById("likeButton_" + postId).innerText = responseData.result?.likedUsers?.length || 0;
+
+            // Beğenme durumunu güncelle
+            const isLiked = responseData.result?.isUserLiked; // Sunucudan dönen veriye göre beğenme durumu kontrolü
+            const likedUsersCount = responseData.result?.likedUsers.length || 0;
+
+            // İkonu güncelle
+            const likeIcon = document.getElementById("likeIcon_" + postId);
+            const likeButton = document.getElementById("likeButton_" + postId);
+
+            //likeIcon.className = isLiked ? 'bi bi-heart-fill fs-3 me-2 text-danger' : 'bi bi-heart fs-3 me-2 text-danger';
+            if (isLiked) {
+                likeIcon.classList.remove('bi-heart');
+                likeIcon.classList.add('bi-heart-fill');
+            } else {
+                likeIcon.classList.remove('bi-heart-fill');
+                likeIcon.classList.add('bi-heart');
+            }
+
+            console.log(likeIcon.classList)
+            likeButton.innerText = likedUsersCount;
+
         } catch (error) {
             alert('You must log in to like');
             console.error('Updating likes failed', error);
+        }
+        window.onload = function () {
+            document.getElementById("MyElement").addEventListener('click', like);
         }
     }
 </script>

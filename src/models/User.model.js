@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema(
 
     firstname: { type: String, minLength: 3, required: true },
     lastname: { type: String, minLength: 2, required: true },
+    likedPosts: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     collection: "users",

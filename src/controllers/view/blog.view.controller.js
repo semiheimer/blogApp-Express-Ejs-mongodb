@@ -25,6 +25,7 @@ module.exports.blogPostViewController = {
       req.originalUrl += "&";
     }
     req.originalUrl = req.originalUrl.split("page")[0];
+
     res.render("blogPost/postList", {
       user: req.session?.user,
       paginations,
