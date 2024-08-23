@@ -37,7 +37,7 @@ module.exports = function (app, express) {
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-  app.use(helmet());
+  // app.use(helmet());
   app.use(mongoSanitize());
   app.use("/assets", express.static("./public/assets"));
 

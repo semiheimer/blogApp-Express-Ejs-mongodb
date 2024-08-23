@@ -13,9 +13,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 try {
-  // require("./src/helpers/sync")();
   //if (process.env.NODE_ENV === "development") require("./src/helpers/sync")();
   require("./src/dbConnection");
+  // require("./src/helpers/sync")();
   app.listen(PORT, () => {
     console.log("http://127.0.0.1:" + PORT);
   });
