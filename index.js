@@ -3,7 +3,7 @@ require("express-async-errors");
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 10000;
 const morgan = require("morgan");
 
 require("./startup")(app, express);
@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 try {
+  // require("./src/helpers/sync")();
   //if (process.env.NODE_ENV === "development") require("./src/helpers/sync")();
   require("./src/dbConnection");
   app.listen(PORT, () => {

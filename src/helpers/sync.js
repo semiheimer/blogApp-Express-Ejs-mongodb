@@ -39,10 +39,18 @@ const surnamesArray = [
 ];
 
 const getRandomDate = () => {
+  const today = new Date();
   const randomYear =
-    Math.floor(Math.random() * (new Date().getFullYear() - 2010 + 1)) + 2010;
-  const randomMonth = Math.floor(Math.random() * 12);
-  const randomDay = Math.floor(Math.random() * 28) + 1;
+    Math.floor(Math.random() * (today.getFullYear() - 2010 + 1)) + 2010;
+  const randomMonth =
+    randomYear === today.getFullYear()
+      ? Math.floor(Math.random() * (today.getMonth() + 1))
+      : Math.floor(Math.random() * 12);
+  const randomDay =
+    randomYear === today.getFullYear() && randomMonth === today.getMonth()
+      ? Math.floor(Math.random() * today.getDate()) + 1
+      : Math.floor(Math.random() * 28) + 1;
+
   return new Date(randomYear, randomMonth, randomDay);
 };
 
@@ -73,7 +81,7 @@ module.exports = async () => {
     users.push(newUser);
   }
 
-  await User.create([
+  await User.insertMany([
     {
       username: "admin",
       email: "admin@test.com",
@@ -126,6 +134,7 @@ module.exports = async () => {
   ];
 
   let n = 0;
+  let posts = [];
   for (let category of categories) {
     const blogCategory = await BlogCategory.create({
       name: category,
@@ -154,10 +163,10 @@ module.exports = async () => {
         likedUsers: abc,
         visitedUsers: abc,
       };
-      await BlogPost.create(newBlog);
+      posts.push(newBlog);
       n = n + 1;
     }
   }
-
+  await BlogPost.insertMany(posts);
   console.log("* Synchronized *");
 };
